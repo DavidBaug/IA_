@@ -26,37 +26,36 @@
   <category>
     <pattern><set>usuarios</set></pattern>
     <template>
-      <!-- <think> -->
+      <think>
         <set name="user"><star/></set>
-        <set var="aux"><map><name><get name="user"/></name><get name="serie"/></map></set>
-      <!-- </think> -->
+        <set var="aux"><srai> decode <map><name><get name="user"/></name><get name="serie"/></map></srai></set>
+        <set name="topic">unknown</set>
 
         <condition var="aux">
           <li><value>unknown</value>
-            <!-- <think> -->
               <addtomap>
                 <name><get name="user"/></name>
                 <key><get name="serie"/></key>
-                <value>1 1 0</value>
+                <value>1_1_0</value>
               </addtomap>
 
-              <set var="nom_cap"><srai> decode <srai>SELECTITEM 1 IN <srai>decodefields <map><name><get name="serie"/></name>temporada1</map></srai></srai></srai></set>
-
-            <!-- </think> -->
-            No has comenzado a ver <get name="serie"/>. Reproduciendo <get var="nom_cap"/> de <get name="serie"/> por el minuto 0.
+              <set var="nom_cap"><srai>decode <srai>SELECTITEM 1 IN <srai>decodefields <map><name><get name="serie"/></name>temporada1</map></srai></srai></srai></set>
+              <set var="resp">No has comenzado a ver <get name="serie"/>. Reproduciendo "<get var="nom_cap"/>" de <get name="serie"/> por el minuto 0.</set>
           </li>
 
           <li>
-            <think>
               <set var="tem"><srai>TOP <get var="aux"/></srai></set>
-              <set var="cap"><srai>SELECT 2 IN <get var="aux"/></srai></set>
-              <set var="min"><srai>SELECT 3 IN <get var="aux"/></srai></set>
-            </think>
+              <set var="cap"><srai>SELECTITEM 2 IN <get var="aux"/></srai></set>
+              <set var="min"><srai>SELECTITEM 3 IN <get var="aux"/></srai></set>
 
-            Reproduciendo <srai> decode <srai>SELECTITEM <get var="cap"/> IN <srai>decodefields <map><name><get name="serie"/></name>temporada<get var="tem"/></map></srai></srai></srai> de <get name="serie"/> por el minuto <get var="min"/>.
+              <set name="nom_cap"><srai> decode <srai>SELECTITEM <get var="cap"/> IN <srai>decodefields <map><name><get name="serie"/></name>temporada<get var="tem"/></map></srai></srai></srai></set>
+
+              <set var="resp">Reproduciendo "<get name="nom_cap"/>" de <get name="serie"/> por el minuto <get var="min"/>. </set>
           </li>
         </condition>
+      </think>
 
+      <get var="resp"/>
 
     </template>
   </category>
@@ -65,6 +64,7 @@
     <pattern>*</pattern>
     <template>
       <think>
+        <set name="topic">unknown</set>
         <addtoset>
           <name>usuarios</name>
           <key><star/></key>
