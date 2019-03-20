@@ -1,0 +1,8 @@
+genero:crimen
+idioma:esp@ing@fra
+subtitulo:esp@ing@fra@chi@ita
+descripcion:Ocho_seniores_atracan_un_coso
+web:wwwwwww
+temporadas:1
+temporada1:El_plan@El_plan_fracasa@Este_si_funciona@
+duracion1:25@34@231@

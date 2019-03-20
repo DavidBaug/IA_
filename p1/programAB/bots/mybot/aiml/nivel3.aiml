@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+<category>
+  <pattern>reproduc+ (la serie) <set>netflix</set></pattern>
+  <template>
+    <think>
+      <set name="serie"><star/></set>
+      <set name="topic">user</set>
+    </think>
+    Okkkks, dime quien eres.
+  </template>
+</category>
+
+<category>
+  <pattern>reproduc+ (la serie) *</pattern>
+  <template>
+    <think>
+      <set name="topic">plataforma_aniade_serie</set>
+    </think>
+    No conozco la serie <star/>. Quieres añadirla?
+  </template>
+</category>
+
+<topic name="user">
+  <category>
+    <pattern><set>usuarios</set></pattern>
+    <template>
+      <!-- <think> -->
+        <set name="user"><star/></set>
+        <set var="aux"><map><name><get name="user"/></name><get name="serie"/></map></set>
+      <!-- </think> -->
+
+        <condition var="aux">
+          <li><value>unknown</value>
+            <!-- <think> -->
+              <addtomap>
+                <name><get name="user"/></name>
+                <key><get name="serie"/></key>
+                <value>1 1 0</value>
+              </addtomap>
+
+              <set var="nom_cap"><srai> decode <srai>SELECTITEM 1 IN <srai>decodefields <map><name><get name="serie"/></name>temporada1</map></srai></srai></srai></set>
+
+            <!-- </think> -->
+            No has comenzado a ver <get name="serie"/>. Reproduciendo <get var="nom_cap"/> de <get name="serie"/> por el minuto 0.
+          </li>
+
+          <li>
+            <think>
+              <set var="tem"><srai>TOP <get var="aux"/></srai></set>
+              <set var="cap"><srai>SELECT 2 IN <get var="aux"/></srai></set>
+              <set var="min"><srai>SELECT 3 IN <get var="aux"/></srai></set>
+            </think>
+
+            Reproduciendo <srai> decode <srai>SELECTITEM <get var="cap"/> IN <srai>decodefields <map><name><get name="serie"/></name>temporada<get var="tem"/></map></srai></srai></srai> de <get name="serie"/> por el minuto <get var="min"/>.
+          </li>
+        </condition>
+
+
+    </template>
+  </category>
+
+  <category>
+    <pattern>*</pattern>
+    <template>
+      <think>
+        <addtoset>
+          <name>usuarios</name>
+          <key><star/></key>
+        </addtoset>
+      </think>
+      No te conozco, <star/>. Para poder reproducir series crea un archivo llamado <star/>.txt en el directorio map y reiniciame.
+    </template>
+  </category>
+
+
+</topic>
+
+
+
+</aiml>

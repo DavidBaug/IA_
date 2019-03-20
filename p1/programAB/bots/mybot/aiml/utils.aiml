@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+<!-- LESS THAN-->
+<category>
+    <pattern>
+        XLT 0 XS 0
+    </pattern>
+    <template>FALSE
+    </template>
+</category>
+
+<category>
+    <pattern>
+        XLT <set>number</set> XS 0
+    </pattern>
+    <template>FALSE
+    </template>
+</category>
+
+<category>
+    <pattern>
+        XLT 0 XS
+        <set>number</set>
+    </pattern>
+    <template>TRUE
+    </template>
+</category>
+
+<category>
+    <pattern>
+        XLT <set>number</set> XS
+        <set>number</set>
+    </pattern>
+    <template>
+        <srai>XLT
+            <map name="predecessor">
+                <star index="1"/>
+            </map>
+            XS
+            <map name="predecessor">
+                <star index="2"/>
+            </map>
+        </srai>
+    </template>
+</category>
+
+
+<!-- GREATER THAN-->
+<category>
+    <pattern>
+        XGT 0 XS 0
+    </pattern>
+    <template>FALSE
+    </template>
+</category>
+
+<category>
+    <pattern>
+        XGT <set>number</set> XS 0
+    </pattern>
+    <template>TRUE
+    </template>
+</category>
+
+<category>
+    <pattern>
+        XGT 0 XS
+        <set>number</set>
+    </pattern>
+    <template>FALSE
+    </template>
+</category>
+
+<category>
+    <pattern>
+        XGT <set>number</set> XS
+        <set>number</set>
+    </pattern>
+    <template>
+        <srai>XGT
+            <map name="predecessor">
+                <star index="1"/>
+            </map>
+            XS
+            <map name="predecessor">
+                <star index="2"/>
+            </map>
+        </srai>
+    </template>
+</category>
+
+
+<!-- STRING EQUALS-->
+<category>
+    <pattern>
+        XEQ * XS *
+    </pattern>
+    <template>
+        <learn>
+            <category>
+                <pattern>
+                    <eval>
+                        <uppercase>XFALSE
+                            <star/>
+                        </uppercase>
+                    </eval>
+                </pattern>
+                <template>TRUE</template>
+            </category>
+        </learn>
+
+        <srai>XFALSE
+            <star index="2"/>
+        </srai>
+
+        <learn>
+            <category>
+                <pattern>
+                    <eval>
+                        <uppercase>XFALSE
+                            <star/>
+                        </uppercase>
+                    </eval>
+                </pattern>
+                <template>FALSE</template>
+            </category>
+        </learn>
+
+    </template>
+</category>
+
+
+
+
+</aiml>

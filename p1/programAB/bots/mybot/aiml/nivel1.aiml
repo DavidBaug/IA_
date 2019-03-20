@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+<!-- Aniadir series -->
+
+<!-- pregunta plataforma -->
+<category>
+<pattern> [aniad+ introdu+] (la serie) * </pattern>
+<template>
+  <think>
+    <set name="topic">plataforma_aniade_serie</set>
+    <set name="serie"><star/></set>
+  </think>
+  Dime a qué plataforma pertenece la serie.</template>
+</category>
+
+<topic name="plataforma_aniade_serie">
+
+  <!-- DEPENDIENDO DE PLATADORMA ANIADE EN SET-->
+  <category>
+  <pattern> <set>plataformas</set> </pattern>
+  <template>
+    <think>
+      <addtoset>
+        <name><star/></name>
+        <key><get name="serie"/></key>
+      </addtoset>
+    </think>
+    Perfecto, para aniadir la serie <get name="serie"/> de <star/> crea un fichero
+    llamado <get name="serie"/>.txt en el directorio maps, reiniciame y vuelve a pedirme que aniada la serie.
+  </template>
+  </category>
+
+</topic>
+
+
+<!-- Ya conoce serie, map vacio -->
+<category>
+<pattern> [aniad+ introdu+] (la serie) <set>netflix</set> </pattern>
+<template>
+  <think>
+    <set name="topic">aniadiendo_serie_genero</set>
+    <set name="serie"><star/></set>
+  </think>
+  Para aniadir la serie <star/> al catálogo de Netflix te haré unas preguntas. Para comenzar dime el género.</template>
+</category>
+
+<category>
+<pattern> [aniad+ introdu+] (la serie) <set>amazon</set> </pattern>
+<template>
+  <think>
+    <set name="topic">aniadiendo_serie_genero</set>
+    <set name="serie"><star/></set>
+  </think>
+  Para aniadir la serie <star/> al catálogo de Amazon te haré unas preguntas. Para comenzar dime el género.</template>
+</category>
+
+<!-- MODIFICAR SERIE DATOS -->
+
+<topic name="aniadiendo_serie_genero">
+
+  <category>
+  <pattern> * </pattern>
+  <template>
+    <think>
+      <set name="n"><map><name>successor</name><srai>COUNT <star/> </srai></map></set>       <!-- Num generos -->
+      <set name="i">2</set>
+      <set name="genero"><srai>TOP <star/></srai></set>
+      <set name="topic">aniadiendo_serie_idioma</set>
+
+      <condition name="i">                                  <!-- Iteramos sobre generos-->
+        <li><value><get name="n"/></value>
+          <addtomap>                                        <!-- aniadimos genero-->
+            <name><get name="serie"/></name>
+            <key>genero</key>
+            <value><get name="genero"/></value>
+          </addtomap>
+        </li>                                               <!-- Acabamos bucle-->
+
+        <li>
+          <set name="genero"><get name="genero"/>@<srai>SELECTITEM <get name="i"/> IN <star/></srai></set>         <!-- Modificamos genero-->
+          <set name="i">
+            <map><name>successor</name><get name="i"/></map>
+          </set>
+          <loop/>
+        </li>
+      </condition>
+    </think>
+  Ahora dime los idiomas.</template>
+  </category>
+
+
+</topic>
+
+<topic name="aniadiendo_serie_idioma">
+
+  <category>
+  <pattern> * </pattern>
+  <template>
+    <think>
+      <set name="n"><map><name>successor</name><srai>COUNT <star/> </srai></map></set>       <!-- Num generos -->
+      <set name="i">2</set>
+      <set name="idioma"><srai>TOP <star/></srai></set>
+      <set name="topic">aniadiendo_serie_subtitulo</set>
+
+      <condition name="i">                                  <!-- Iteramos sobre generos-->
+        <li><value><get name="n"/></value>
+          <addtomap>                                        <!-- aniadimos genero-->
+            <name><get name="serie"/></name>
+            <key>idioma</key>
+            <value><get name="idioma"/></value>
+          </addtomap>
+        </li>                                               <!-- Acabamos bucle-->
+
+        <li>
+          <set name="idioma"><get name="idioma"/>@<srai>SELECTITEM <get name="i"/> IN <star/></srai></set>         <!-- Modificamos idioma-->
+          <set name="i">
+            <map><name>successor</name><get name="i"/></map>
+          </set>
+          <loop/>
+        </li>
+      </condition>
+    </think>
+  Ahora dime los subtitulos.</template>
+  </category>
+
+
+</topic>
+
+<topic name="aniadiendo_serie_subtitulo">
+
+  <category>
+  <pattern> * </pattern>
+  <template>
+    <think>
+      <set name="n"><map><name>successor</name><srai>COUNT <star/> </srai></map></set>       <!-- Num generos -->
+      <set name="i">2</set>
+      <set name="subtitulo"><srai>TOP <star/></srai></set>
+      <set name="topic">aniadiendo_serie_descripcion</set>
+
+      <condition name="i">                                  <!-- Iteramos sobre subtitulo-->
+        <li><value><get name="n"/></value>
+          <addtomap>                                        <!-- aniadimos subtitulo-->
+            <name><get name="serie"/></name>
+            <key>subtitulo</key>
+            <value><get name="subtitulo"/></value>
+          </addtomap>
+        </li>                                               <!-- Acabamos bucle-->
+
+        <li>
+          <set name="subtitulo"><get name="subtitulo"/>@<srai>SELECTITEM <get name="i"/> IN <star/></srai></set>         <!-- Modificamos subtitulo-->
+          <set name="i">
+            <map><name>successor</name><get name="i"/></map>
+          </set>
+          <loop/>
+        </li>
+      </condition>
+    </think>
+  Ahora dime una descripcion.</template>
+  </category>
+
+
+</topic>
+
+<topic name="aniadiendo_serie_descripcion">
+
+  <category>
+  <pattern> * </pattern>
+  <template>
+    <think>
+      <set name="topic">aniadiendo_serie_web</set>
+
+      <addtomap>
+        <name><get name="serie"/></name>
+        <key>descripcion</key>
+        <value><srai>CODE <star/></srai></value>
+      </addtomap>
+    </think>
+  Ahora dime una pagina web.</template>
+  </category>
+
+
+</topic>
+
+<topic name="aniadiendo_serie_web">
+
+  <category>
+  <pattern> * </pattern>
+  <template>
+    <think>
+      <set name="topic">unknown</set>
+
+      <addtomap>
+        <name><get name="serie"/></name>
+        <key>web</key>
+        <value><star/></value>
+      </addtomap>
+
+      <addtomap>
+        <name><get name="serie"/></name>
+        <key>temporadas</key>
+        <value>0</value>
+      </addtomap>
+
+    </think>
+  Ya he aniadido la información básica de la serie, ahora si quieres podemos aniadir los capítulos. Para añadir un capitulo dime que lo añada.</template>
+  </category>
+
+</topic>
+
+<category>
+  <pattern> [aniad+ introduc+] # capitulo # de <set>amazon</set> </pattern>
+  <template>
+    <think>
+      <set name="serie"><star index="3"/></set>
+      <set name="topic">aniadiendo_capitulo</set>
+    </think>
+    Dime a qué temporada pertenece el capítulo.
+  </template>
+</category>
+
+  <category>
+    <pattern> [aniad+ introduc+] # capitulo # de <set>netflix</set> </pattern>
+    <template>
+      <think>
+        <set name="serie"><star index="3"/></set>
+        <set name="topic">aniadiendo_capitulo</set>
+      </think>
+      Dime a qué temporada pertenece el capítulo.
+    </template>
+  </category>
+
+
+  <category>
+    <pattern> [aniad+ introduc+] # capitulo # de * </pattern>
+    <template>
+      No conozco <star index="3"/>.
+    </template>
+  </category>
+
+  <topic name="aniadiendo_capitulo">
+
+    <category>
+      <pattern><set>number</set></pattern>
+      <template>
+        <think>
+          <set name="ult"><map><name><get name="serie"/></name>temporadas</map></set> <!-- ult temporada que existe-->
+          <set name="gt"><srai>XGT <star/> XS 0 </srai></set>
+          <set name="temporada"><star/></set>
+          <set name="cond"><srai>XLT <star/> XS <get name="ult"/></srai></set>
+          <set name="cond2"><srai>XEQ <star/> XS <get name="ult"/></srai></set>
+        </think>
+
+        <condition name="gt" value="TRUE">
+
+          <li value="TRUE">
+            <condition name="cond">
+              <li value="TRUE">
+                    <think><set name="topic">aniade_cap</set></think>
+                    Vale, lo añado a la temporada <star/>. Dime el nombre del capítulo.
+              </li>
+              <li>
+                <condition name="cond2">
+                  <li value="TRUE">
+                    <think><set name="topic">aniade_cap</set></think>
+                    Vale, lo añado a la temporada <star/>. Dime el nombre del capítulo.
+                  </li>
+                  <li>
+                    <think><set name="topic">nueva_temporada</set></think>
+                    La temporada <star/> no existe, la última creada es la <get name="ult"/>.¿deseas crear una nueva y añadir un capitulo?
+                  </li>
+                </condition>
+              </li>
+            </condition>
+          </li>
+
+          <li>
+            Uhmmm, no puedo añadir un capítulo a la temporada <star/>
+          </li>
+
+        </condition>
+
+      </template>
+    </category>
+
+  </topic>
+
+    <topic name="nueva_temporada">
+
+      <category>
+        <pattern>NO</pattern>
+        <template>
+          <think><set name="topic">unknown</set></think>
+          Pues no añado nada.
+        </template>
+      </category>
+
+      <category>
+        <pattern>SI</pattern>
+        <template>
+          <think>
+            <set name="topic">aniade_primer_cap</set>
+            <set name="ult"><map><name><get name="serie"/></name>temporadas</map></set>
+            <set name="aux"><map><name>successor</name><get name="ult"/></map></set>
+
+
+            <modifymap>                                        <!-- aniadimos genero-->
+              <name><get name="serie"/></name>
+              <key>temporadas</key>
+              <value><get name="aux"/></value>
+            </modifymap>
+
+          </think>
+          Dime el nombre del capítulo.
+        </template>
+      </category>
+
+    </topic>
+
+    <topic name="aniade_primer_cap">
+
+      <category>
+        <pattern>*</pattern>
+        <template>
+          <think>
+            <set name="topic">aniade_primer_dur</set>
+            <set name="aux"><map><name><get name="serie"/></name>temporadas</map></set>
+            <set name="nombre"><srai>CODE <star/></srai></set>
+
+            <addtomap>                                        <!-- aniadimos genero-->
+              <name><get name="serie"/></name>
+              <key>temporada<get name="aux"/></key>
+              <value><get name="nombre"/>@</value>
+            </addtomap>
+          </think>
+          Dime la duración del capítulo.
+        </template>
+      </category>
+
+
+    </topic>
+
+    <topic name="aniade_primer_dur">
+
+      <category>
+        <pattern>*</pattern>
+        <template>
+          <think>
+            <set name="topic">unknown</set>
+            <set name="aux"><map><name><get name="serie"/></name>temporadas</map></set>
+
+            <addtomap>                                        <!-- aniadimos genero-->
+              <name><get name="serie"/></name>
+              <key>duracion<get name="aux"/></key>
+              <value><star/>@</value>
+            </addtomap>
+          </think>
+          Ya he añadido el nuevo capitulo de la nueva temporada.
+        </template>
+      </category>
+
+
+    </topic>
+
+    <topic name="aniade_cap">
+      <category>
+        <pattern> * </pattern>
+        <template>
+          <think>
+            <set name="topic">aniade_duracion</set>
+
+            <set name="aux"><map><name><get name="serie"/></name>temporada<get name="temporada"/></map></set> <!-- valor del campo de esa temporada-->
+
+            <modifymap>                                        <!-- aniadimos genero-->
+              <name><get name="serie"/></name>
+              <key>temporada<get name="temporada"/></key>
+              <value><get name="aux"/><srai>CODE <star/>@</srai></value>
+            </modifymap>
+
+          </think>
+          Dime la duracion del capitulo.
+        </template>
+      </category>
+
+    </topic>
+
+    <topic name="aniade_duracion">
+      <category>
+        <pattern> * </pattern>
+        <template>
+          <think>
+            <set name="topic">unknown</set>
+            <set name="aux"><map><name><get name="serie"/></name>duracion<get name="temporada"/></map></set> <!-- valor del campo de esa duracion-->
+
+            <modifymap>                                        <!-- aniadimos genero-->
+              <name><get name="serie"/></name>
+              <key>duracion<get name="temporada"/></key>
+              <value><get name="aux"/><star/>@</value>
+            </modifymap>
+
+          </think>
+
+          Ya he añadido el nuevo capitulo.
+        </template>
+      </category>
+
+    </topic>
+
+</aiml>

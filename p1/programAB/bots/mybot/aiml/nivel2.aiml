@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+  <category>
+  			<pattern> decodefields * </pattern>
+  			<template>
+        <think>
+        <set	var="palabra"></set>
+        <set	var="solucion"></set>
+        <set	var="tmp"><star/></set>
+        <set	var="tmp"> <explode><get var="tmp"/></explode>	</set>
+        <set	var="caracter"><first><get var="tmp"/></first></set>
+        <set	var="tmp"><rest><get var="tmp"/></rest></set>
+        <condition	var="caracter">
+        <li	value="NIL">
+        <set	var="solucion"><get var="solucion"/> <get var="palabra"/></set>
+        </li>
+        <li	value="@">
+        <set	var="solucion"><get var="solucion"/> <get var="palabra"/></set>
+        <set	var="palabra"></set>
+        <set	var="caracter"><first><get var="tmp"/></first></set>
+        <set	var="tmp"><rest><get var="tmp"/></rest></set>
+        <loop/>
+        </li>
+        <li>
+        <set	var="palabra"><get var="palabra"/><get var="caracter"/></set>
+        <set	var="caracter"><first><get var="tmp"/></first></set>
+        <set	var="tmp"><rest><get var="tmp"/></rest></set>
+        <loop/>
+        </li>
+        </condition>
+      </think>
+  		<get var="solucion"/>
+  		</template>
+  </category>
+
+  <category>
+  <pattern> metey * </pattern>
+<template>
+    <think>
+    <set	var="lista"><star/></set>
+    <set	var="tamano"><srai>COUNT <get var="lista"/></srai></set>
+    <set	var="solucion"></set>
+    <condition	var="tamano">
+        <li	value="0"></li>
+        <li	value="1">
+            <set	var="solucion"><get var="lista"/></set>
+        </li>
+        <li>
+            <condition	var="tamano">
+                <li	value="1">
+                    <set	var="solucion"><get var="solucion"/> y	<get var="lista"/></set>
+                </li>
+                <li>
+                    <set	var="palabra"><first><get var="lista"/></first></set>
+                    <set	var="lista"><rest><get var="lista"/></rest></set>
+                    <set	var="solucion"><get var="solucion"/> <get var="palabra"/></set>
+                    <set	var="tamano"><map	name="predecessor"><get var="tamano"/></map></set>
+                    <loop/>
+                </li>
+            </condition>
+        </li>
+    </condition>
+    </think>
+    <get var="solucion"/>
+</template>
+</category>
+
+<!-- preguntar idiomas y subtitulos -->
+
+  <category>
+    <pattern># idioma+ # <set>netflix</set></pattern>
+    <template>
+      <!-- <think> -->
+        <set name="aux1"><srai>decodefields <map><name><star index="3"/></name>idioma</map></srai></set>
+      <!-- </think> -->
+      <!-- La serie <star index="3"/> tiene los siguientes idiomas: <get name="aux1"/> -->
+      La serie <star index="3"/> tiene los siguientes idiomas:<srai>metey <get name="aux1"/></srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern># subtitulo+ # <set>netflix</set></pattern>
+    <template>
+      <think>
+        <set name="aux1"><srai>decodefields <map><name><star index="3"/></name>subtitulo</map></srai></set>
+      </think>
+      <!-- La serie <star index="3"/> tiene los siguientes subtitulos: <get name="aux1"/> -->
+      La serie <star index="3"/> tiene los siguientes idiomas:<srai>metey <get name="aux1"/></srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern># idioma+ # <set>amazon</set></pattern>
+    <template>
+      <!-- <think> -->
+        <set name="aux1"><srai>decodefields <map><name><star index="3"/></name>idioma</map></srai></set>
+      <!-- </think> -->
+      <!-- La serie <star index="3"/> tiene los siguientes idiomas: <get name="aux1"/> -->
+      La serie <star index="3"/> tiene los siguientes idiomas:<srai>metey <get name="aux1"/></srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern># subtitulo+ # <set>amazon</set></pattern>
+    <template>
+      <think>
+        <set name="aux1"><srai>decodefields <map><name><star index="3"/></name>subtitulo</map></srai></set>
+      </think>
+      <!-- La serie <star index="3"/> tiene los siguientes subtitulos: <get name="aux1"/> -->
+      La serie <star index="3"/> tiene los siguientes idiomas:<srai>metey <get name="aux1"/></srai>
+    </template>
+  </category>
+
+
+  <!-- Comprobar idiomas netflix -->
+
+  <category>
+    <pattern>(la serie) <set>netflix</set> esta en *</pattern>
+    <template>
+      <think>
+        <set var="idioma"><star index="2"/></set>
+        <set var="cond"><srai>FIND <get var="idioma"/> IN <map><name><star/></name></map>idioma</srai></set>
+      </think>
+
+      <condition name="cond">
+        <li value="0">Nop, la serie <star/> no esta en <get var="idioma"/>.</li>
+        <li> Ci, la serie <star/> esta en <get var="idioma"/>.</li>
+      </condition>
+
+    </template>
+  </category>
+
+  <!-- Comprobar subtitulos netflix -->
+
+  <category>
+    <pattern>(la serie) <set>netflix</set> (tiene) # subtitulos en *</pattern>
+    <template>
+      <think>
+        <set var="subs"><star index="3"/></set>
+        <set var="cond"><srai>FIND <get var="subs"/> IN <map><name><star/></name></map>subtitulo</srai></set>
+      </think>
+
+      <condition name="cond">
+        <li value="0">Nop, la serie <star/> no tiene subtitulos en <get var="subs"/>.</li>
+        <li> Ci, la serie <star/> tiene subtitulos en <get var="subs"/>.</li>
+      </condition>
+
+    </template>
+  </category>
+
+  <!-- Comprobar idiomas amazon -->
+
+  <category>
+    <pattern>(la serie) <set>amazon</set> esta en *</pattern>
+    <template>
+      <think>
+        <set var="idioma"><star index="2"/></set>
+        <set var="cond"><srai>FIND <get var="idioma"/> IN <map><name><star/></name></map>idioma</srai></set>
+      </think>
+
+      <condition name="cond">
+        <li value="0">Nop, la serie <star/> no esta en <get var="idioma"/>.</li>
+        <li> Ci, la serie <star/> esta en <get var="idioma"/>.</li>
+      </condition>
+
+    </template>
+  </category>
+
+  <!-- Comprobar subtitulos amazon -->
+
+  <category>
+    <pattern>(la serie) <set>amazon</set> (tiene) # subtitulos en *</pattern>
+    <template>
+      <think>
+        <set var="subs"><star index="3"/></set>
+        <set var="cond"><srai>FIND <get var="subs"/> IN <map><name><star/></name></map>subtitulo</srai></set>
+      </think>
+
+      <condition name="cond">
+        <li value="0">Nop, la serie <star/> no tiene subtitulos en <get var="subs"/>.</li>
+        <li> Ci, la serie <star/> tiene subtitulos en <get var="subs"/>.</li>
+      </condition>
+
+    </template>
+  </category>
+
+
+  <!-- Numero idiomas y subtitulos-->
+
+  <category>
+    <pattern>$numero idioma+ <set>netflix</set></pattern>
+    <template>
+      <think>
+        <set var="aux"><srai>COUNT <srai>decodefields <map><name><star/></name>idioma</map></srai></srai></set>
+      </think>
+      La serie <star/> tiene <get var="aux"/> idiomas.
+    </template>
+  </category>
+
+  <category>
+    <pattern>$numero idioma+ <set>amazon</set></pattern>
+    <template>
+      <think>
+        <set var="aux"><srai>COUNT <srai>decodefields <map><name><star/></name>idioma</map></srai></srai></set>
+      </think>
+      La serie <star/> tiene <get var="aux"/> idiomas.
+    </template>
+  </category>
+
+  <!-- Subtitulos -->
+
+  <category>
+    <pattern>$numero subtitulo+ <set>netflix</set></pattern>
+    <template>
+      <think>
+        <set var="aux"><srai>COUNT <srai>decodefields <map><name><star/></name>subtitulo</map></srai></srai></set>
+      </think>
+      La serie <star/> tiene <get var="aux"/> subtitulos.
+    </template>
+  </category>
+
+  <category>
+    <pattern>$numero subtitulo+ <set>amazon</set></pattern>
+    <template>
+      <think>
+        <set var="aux"><srai>COUNT <srai>decodefields <map><name><star/></name>subtitulo</map></srai></srai></set>
+      </think>
+      La serie <star/> tiene <get var="aux"/> subtitulos.
+    </template>
+  </category>
+
+<!-- Numero temporadas -->
+
+    <category>
+      <pattern>$numero temporada+ <set>netflix</set></pattern>
+      <template>
+        La serie <star/> tiene <map><name><star/></name>temporadas</map> temporadas.
+      </template>
+    </category>
+
+    <category>
+      <pattern>$numero temporada+ <set>amazon</set></pattern>
+      <template>
+        La serie <star/> tiene <map><name><star/></name>temporadas</map> temporadas.
+      </template>
+    </category>
+
+<!-- Numero capitulos totales -->
+
+<category>
+  <pattern>sumar <set>number</set> mas <set>number</set></pattern>
+  <template>
+    <think>
+      <set name="cont"><star/></set>
+      <set name="cond"><srai>XGT <star index="2"/> XS 0 </srai></set>
+
+      <set name="aux"><star index="2"/></set>
+
+    <condition name="cond" value="TRUE">
+        <set name="cont"><srai>sumar <map><name>successor</name><get name="cont"/></map> mas <map><name>predecessor</name><get name="aux"/></map></srai></set>
+    </condition>
+
+    </think>
+
+    <get name="cont"/>
+
+  </template>
+</category>
+
+<category>
+  <pattern>$numero (de) capitulo+ totales (de) <set>netflix</set></pattern>
+  <template>
+    <think>
+      <set name="i">2</set>
+      <set name="cont"><srai>COUNT <srai>decodefields <map><name><star/></name>temporada1</map></srai></srai></set>
+      <set name="fin"><map><name>successor</name><map><name><star/></name>temporadas</map></map></set>
+
+    </think>
+
+      <condition name="i">
+        <li><value><get name="fin"/></value>
+          El número de capitulos totales es <get name="cont"/>
+        </li>
+        <li>
+          <think>
+          <set name="cont"><srai>sumar <get name="cont"/> mas <srai>COUNT <srai>decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai></srai></set>
+          <set name="i"><map><name>successor</name><get name="i"/></map></set>
+          </think>
+          <loop/>
+        </li>
+      </condition>
+
+  </template>
+</category>
+
+<category>
+  <pattern>$numero (de) capitulo+ totales (de) <set>amazon</set></pattern>
+  <template>
+    <think>
+      <set name="i">2</set>
+      <set name="cont"><srai>COUNT <srai>decodefields <map><name><star/></name>temporada1</map></srai></srai></set>
+      <set name="fin"><map><name>successor</name><map><name><star/></name>temporadas</map></map></set>
+
+    </think>
+
+      <condition name="i">
+        <li><value><get name="fin"/></value>
+          El número de capitulos totales es <get name="cont"/>
+        </li>
+        <li>
+          <think>
+          <set name="cont"><srai>sumar <get name="cont"/> mas <srai>COUNT <srai>decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai></srai></set>
+          <set name="i"><map><name>successor</name><get name="i"/></map></set>
+          </think>
+          <loop/>
+        </li>
+      </condition>
+
+  </template>
+</category>
+
+<!-- Numero capitulos temporada -->
+
+<category>
+  <pattern>numero capitulo+ (de) <set>netflix</set> (de la) temporada * </pattern>
+  <template>
+    <think>
+      <set name="i"><star index="2"/></set>
+      <set name="cond"><srai>XGT <get name="i"/> XS <map><name><star/></name>temporadas</map> </srai></set>
+
+    </think>
+
+      <condition name="cond">
+        <li value="TRUE">Esa temporada no existe, la última es la <map><name><star/></name>temporadas</map>.</li>
+        <li>
+          La temporada <get name="i"/> tiene <srai>COUNT <srai> decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai> capítulos.
+        </li>
+      </condition>
+
+  </template>
+</category>
+
+<category>
+  <pattern>numero capitulo+ (de) <set>amazon</set> (de la) temporada * </pattern>
+  <template>
+    <think>
+      <set name="i"><star index="2"/></set>
+      <set name="cond"><srai>XGT <get name="i"/> XS <map><name><star/></name>temporadas</map> </srai></set>
+
+    </think>
+
+      <condition name="cond">
+        <li value="TRUE">Esa temporada no existe, la última es la <map><name><star/></name>temporadas</map>.</li>
+        <li>
+          La temporada <get name="i"/> tiene <srai>COUNT <srai> decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai> capítulos.
+        </li>
+      </condition>
+
+  </template>
+</category>
+
+<!-- Decir nombre de un capitulo concreto -->
+
+<category>
+  <pattern>(di+ el) nombre (del) capitulo <set>number</set> (de la) temporada <set>number</set> (de la) serie <set>netflix</set></pattern>
+  <template>
+    <think>
+      <set name="num"><star/></set>
+      <set name="temporada"><star index="2"/></set>
+      <set name="serie"><star index="3"/></set>
+
+      <set name="cond"><srai>XGT <get name="temporada"/> XS <map><name><get name="serie"/></name>temporadas</map> </srai></set>
+      <set name="cond1"><srai>XGT <get name="num"/> XS <srai>COUNT <srai> decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai></srai></set>
+
+      <set name="respuesta"></set>
+
+    </think>
+
+    <condition name="cond">
+      <li value="TRUE">
+        No conozco esa temporada, la última añadida es la número <map><name><get name="serie"/></name>temporadas</map>
+      </li>
+      <li>
+        <condition name="cond1">
+          <li value="TRUE">
+            Ese capítulo no existe en la temporada <get name="temporada"/>, el último capitulo es el <srai>COUNT <srai> decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai>
+          </li>
+          <li>
+            El capitulo <get name="num"/> de la temporada <get name="temporada"/> de <get name="serie"/> es: <srai> decode <srai>SELECTITEM <get name="num"/> IN <srai>decodefields <map><name><get name="serie"/></name>temporada<get name="temporada"/></map></srai></srai></srai>
+          </li>
+        </condition>
+      </li>
+    </condition>
+
+  </template>
+</category>
+
+<category>
+  <pattern>(di+ el) nombre (del) capitulo <set>number</set> (de la) temporada <set>number</set> (de la) serie <set>amazon</set></pattern>
+  <template>
+    <think>
+      <set name="num"><star/></set>
+      <set name="temporada"><star index="2"/></set>
+      <set name="serie"><star index="3"/></set>
+
+      <set name="cond"><srai>XGT <get name="temporada"/> XS <map><name><get name="serie"/></name>temporadas</map> </srai></set>
+      <set name="cond1"><srai>XGT <get name="num"/> XS <srai>COUNT <srai> decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai></srai></set>
+
+      <set name="respuesta"></set>
+
+    </think>
+
+    <condition name="cond">
+      <li value="TRUE">
+        No conozco esa temporada, la última añadida es la número <map><name><get name="serie"/></name>temporadas</map>
+      </li>
+      <li>
+        <condition name="cond1">
+          <li value="TRUE">
+            Ese capítulo no existe en la temporada <get name="temporada"/>, el último capitulo es el <srai>COUNT <srai> decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai>
+          </li>
+          <li>
+            El capitulo <get name="num"/> de la temporada <get name="temporada"/> de <get name="serie"/> es: <srai> decode <srai>SELECTITEM <get name="num"/> IN <srai>decodefields <map><name><get name="serie"/></name>temporada<get name="temporada"/></map></srai></srai></srai>
+          </li>
+        </condition>
+      </li>
+    </condition>
+
+  </template>
+</category>
+
+<!-- Minutos capitulo temporada -->
+
+<category>
+  <pattern>(di+ la) duracion (del) capitulo <set>number</set> (de la) temporada <set>number</set> (de la) serie <set>netflix</set></pattern>
+  <template>
+    <think>
+      <set name="num"><star/></set>
+      <set name="temporada"><star index="2"/></set>
+      <set name="serie"><star index="3"/></set>
+
+      <set name="cond"><srai>XGT <get name="temporada"/> XS <map><name><get name="serie"/></name>temporadas</map> </srai></set>
+      <set name="cond1"><srai>XGT <get name="num"/> XS <srai>COUNT <srai> decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai></srai></set>
+
+      <set name="respuesta"></set>
+
+    </think>
+
+    <condition name="cond">
+      <li value="TRUE">
+        No conozco esa temporada, la última añadida es la número <map><name><get name="serie"/></name>temporadas</map>
+      </li>
+      <li>
+        <condition name="cond1">
+          <li value="TRUE">
+            Ese capítulo no existe en la temporada <get name="temporada"/>, el último capitulo es el <srai>COUNT <srai> decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai>
+          </li>
+          <li>
+            La duracion del capitulo <get name="num"/> de la temporada <get name="temporada"/> de <get name="serie"/> es: <srai> decode <srai>SELECTITEM <get name="num"/> IN <srai>decodefields <map><name><get name="serie"/></name>duracion<get name="temporada"/></map></srai></srai></srai> minutos
+          </li>
+        </condition>
+      </li>
+    </condition>
+
+  </template>
+</category>
+
+<category>
+  <pattern>(di+ la) duracion (del) capitulo <set>number</set> (de la) temporada <set>number</set> (de la) serie <set>amazon</set></pattern>
+  <template>
+    <think>
+      <set name="num"><star/></set>
+      <set name="temporada"><star index="2"/></set>
+      <set name="serie"><star index="3"/></set>
+
+      <set name="cond"><srai>XGT <get name="temporada"/> XS <map><name><get name="serie"/></name>temporadas</map> </srai></set>
+      <set name="cond1"><srai>XGT <get name="num"/> XS <srai>COUNT <srai> decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai></srai></set>
+
+      <set name="respuesta"></set>
+
+    </think>
+
+    <condition name="cond">
+      <li value="TRUE">
+        No conozco esa temporada, la última añadida es la número <map><name><get name="serie"/></name>temporadas</map>
+      </li>
+      <li>
+        <condition name="cond1">
+          <li value="TRUE">
+            Ese capítulo no existe en la temporada <get name="temporada"/>, el último capitulo es el <srai>COUNT <srai> decodefields <map><name><star/></name>temporada<get name="i"/></map></srai></srai>
+          </li>
+          <li>
+            La duracion del capitulo <get name="num"/> de la temporada <get name="temporada"/> de <get name="serie"/> es: <srai> decode <srai>SELECTITEM <get name="num"/> IN <srai>decodefields <map><name><get name="serie"/></name>duracion<get name="temporada"/></map></srai></srai></srai> minutos
+          </li>
+        </condition>
+      </li>
+    </condition>
+
+  </template>
+</category>
+
+</aiml>

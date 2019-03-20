@@ -1,0 +1,6 @@
+name:Wilfredo
+email:davidgilbautista@gmail.com
+gender:male
+botmaster:baugdavid	
+organization:ugr
+version:0.0.1

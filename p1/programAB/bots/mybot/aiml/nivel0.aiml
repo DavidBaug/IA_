@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+
+<!-- ANEXO-->
+<!-- 1 -->
+
+<category>
+<pattern>$hablame un poco de ti</pattern>
+<template>Desde pequenio siempre he querido hacer algo util, me interese por la informatica
+y encontre varios ambitos en los que me gustaria desarrollarme.
+</template>
+</category>
+
+<!-- 2 -->
+
+
+<category>
+<pattern>$cual es tu mayor defecto</pattern>
+<template>Desde pequenio he sido excesivamente modesto. </template>
+</category>
+
+<!-- 3 -->
+
+
+<category>
+<pattern>$que aspectos no te gustan de un jefe</pattern>
+<template>Suelo adaptarme bien al trabajo, aunque si hay algo que no tolero es
+que me traten como si fuera un esclavo.</template>
+</category>
+
+<!-- 4 -->
+
+<category>
+<pattern>$cuales son tus <set>number</set> mayores virtudes</pattern>
+<template>
+  <think>
+    <set name="x"><star index="2"/></set>
+  </think>
+  <condition name="x">
+    <li value="2">Soy muy trabajador y eficiente</li>
+    <li value="3">Soy muy trabajador, eficiente y original</li>
+    <li value="4">Soy muy trabajador, eficiente, original y un depurador humano</li>
+    <li value="5">Creo que soy un excelente lider, tengo experiencia soy eficaz, eficiente e inefable.</li>
+    <li>Tengo tantas virtudes que acabariamos antes si te dijera los defectos.</li>
+  </condition>
+</template>
+</category>
+
+<!-- 5 -->
+
+<category>
+<pattern>$te consideras preparado para desempeniar las funciones de este puesto</pattern>
+<template>Por supuesto, tengo cierta experiencia en el tema y siempre he estado interesado
+          en trabajar en esta empresa</template>
+</category>
+
+
+
+<!-- 6 -->
+
+<category>
+<pattern>$Tienes experiencia en la realizacion de proyectos en equipos de trabajo</pattern>
+<template>Si, ya he trabajado antes con grupos y lo primordial ha sido la organizacion.</template>
+</category>
+
+<!-- 7 -->
+
+<category>
+<pattern>$Realizarias un trabajo que no fuera con tu especialidad</pattern>
+<template>Claro, si algo he aprendido en estos insufribles anios estudiando
+          es que debo adaptarme a todo. </template>
+</category>
+
+
+<!-- 8 -->
+
+<category>
+<pattern>$Te desplazarias de manera ocasional a otros lugares</pattern>
+<template>Incluso de manera permanente. </template>
+</category>
+
+<!-- 9 -->
+
+<category>
+<pattern>$Te consideras una persona creativa</pattern>
+<template>Exceso de creativismo me ha diagnosticado el medico. </template>
+</category>
+
+<!-- 10 -->
+
+<category>
+<pattern>$Que expectativas tienes de este trabajo</pattern>
+<template> Me parece que puede ser un trabajo que me ayude a aprender todo lo que no
+            han sido capaces de enseniarme en la universidad. </template>
+</category>
+
+<!-- 11 -->
+
+<category>
+<pattern>$Que trabajos has tenido en esta tematica</pattern>
+<template> Estuve trabajando varios anios en California y trate la tematica en una
+            empresa especializada en ello.</template>
+</category>
+
+<!-- 12 -->
+
+<category>
+<pattern>$Normalmente te llevas el trabajo a casa</pattern>
+<template> No </template>
+</category>
+
+<!-- 13 -->
+
+<category>
+<pattern>$Cuales son tus aspiraciones salariales</pattern>
+<template> Poder comprar en un anio un pisito en la playa </template>
+</category>
+
+
+<!-- 14 -->
+
+<category>
+<pattern>$Donde te ves dentro de cinco anios</pattern>
+<template>En mi pisito en la playa</template>
+</category>
+
+<!-- 15 -->
+
+<category>
+<pattern>$No tienes experiencia para el puesto a desempeniar</pattern>
+<template> Tampoco tenia experiencia antes de empezar la carrera y aqui estamos, buscando trabajo. </template>
+</category>
+
+<!-- 16 -->
+
+<category>
+<pattern>$Que sabes de la empresa y el puesto de trabajo</pattern>
+<template> He querido trabajar aqui desde que era un renacuajo, y eso ha sido lo que
+            me ha inspirado a formarme en este ambito</template>
+</category>
+
+<!-- 17 -->
+
+<category>
+<pattern>$Que haces cuando consideras que tu jefe no tiene la razon</pattern>
+<template> Procuro hacerlo entrar en razon. </template>
+</category>
+
+
+<!-- 18 -->
+
+<category>
+<pattern>$Por que deberiamos escogerte a ti</pattern>
+<template> Soy mejor que los otros.  </template>
+</category>
+
+<!-- 11111111111111111111111111111111111111111111111111111111111111111111111 -->
+<!-- 11111111111111111111111111111111111111111111111111111111111111111111111 -->
+<!-- 11111111111111111111111111111111111111111111111111111111111111111111111 -->
+<!-- 11111111111111111111111111111111111111111111111111111111111111111111111 -->
+<!-- 11111111111111111111111111111111111111111111111111111111111111111111111 -->
+<!-- 11111111111111111111111111111111111111111111111111111111111111111111111 -->
+<!-- 11111111111111111111111111111111111111111111111111111111111111111111111 -->
+<!-- 11111111111111111111111111111111111111111111111111111111111111111111111 -->
+<!-- 11111111111111111111111111111111111111111111111111111111111111111111111 -->
+
+<category>
+<pattern># [cuent+ habl+ di+] # de [ti usted] #</pattern>
+<template><srai>HABLAME UN POCO DE TI</srai></template>
+</category>
+
+<!-- 22222222222222222222222222222222222222222222222222222222222222222222222 -->
+
+<category>
+<pattern># [di+ tien+] # defecto #</pattern>
+<template><srai>CUAL ES TU MAYOR DEFECTO</srai></template>
+</category>
+
+<category>
+<pattern># defectos #</pattern>
+<template>Tener tantas virtudes.</template>
+</category>
+
+<!-- 33333333333333333333333333333333333333333333333333333333333333333333333 -->
+
+<category>
+<pattern># [que algo] no # [gust+ agrad+ consient+ toler+] # jefe #</pattern>
+<template><srai>Que aspectos no te gustan de un jefe</srai></template>
+</category>
+
+<category>
+<pattern># jefe #[que algo] no # [gust+ agrad+ consient+ toler+] #</pattern>
+<template><srai>Que aspectos no te gustan de un jefe</srai></template>
+</category>
+
+
+<!-- 44444444444444444444444444444444444444444444444444444444444444444444444 -->
+
+<category>
+<pattern># <set>number</set> # [virtudes pros fuertes fuerzas] # </pattern>
+<template>
+  <srai>Cuales son tus <star index="2"/> mayores virtudes</srai></template>
+</category>
+
+<!-- 55555555555555555555555555555555555555555555555555555555555555555555555 -->
+
+<category>
+<pattern># [consider+ cre+ piens+] # [listo preparado dispuesto apto] # [desempeniar realizar] # funciones # [puesto cargo empleo plaza oficio] # </pattern>
+<template><srai>Te consideras preparado para desempeniar las funciones de este puesto</srai></template>
+</category>
+
+<!-- 66666666666666666666666666666666666666666666666666666666666666666666666 -->
+
+<category>
+<pattern># [tien+ cuent+ pose+] # experiencia # realizacion # [proyectos planes ideas trabajos trabajo] # (en) [equipo equipos grupos grupo] # </pattern>
+<template><srai>Tienes experiencia en la realizacion de proyectos en equipos de trabajo</srai></template>
+</category>
+
+<!-- 77777777777777777777777777777777777777777777777777777777777777777777777 -->
+
+<category>
+<pattern># [har+ realiz+ trabaj+] # [trabajo puesto cargo empleo plaza oficio] # no # [especialidad fuerte especializacion rama division] #</pattern>
+<template><srai>Realizarias un trabajo que no fuera con tu especialidad</srai></template>
+</category>
+
+<category>
+<pattern># [har+ realiz+ trabaj+] # [trabajo puesto cargo empleo plaza oficio] # otra # [especialidad fuerte especializacion rama division] #</pattern>
+<template><srai>Realizarias un trabajo que no fuera con tu especialidad</srai></template>
+</category>
+
+<!-- 88888888888888888888888888888888888888888888888888888888888888888888888 -->
+
+<category>
+<pattern># [desplaz+ mover+ viaj+] # [lugares lugar destino destinos ciudades ciudad] #</pattern>
+<template><srai>Te desplazarias de manera ocasional a otros lugares</srai></template>
+</category>
+
+<!-- 99999999999999999999999999999999999999999999999999999999999999999999999 -->
+
+<category>
+<pattern># [consider+ cre+ piens+] # [creativa creativo original imaginativo imaginativa ingenioso ingeniosa] #</pattern>
+<template><srai>Te consideras una persona creativa</srai></template>
+</category>
+
+<!-- 10101010101010101010101010101010101010101010101010101010101010101010101 -->
+
+<category>
+<pattern># (que) # [expectativ+ aspiracio+ esperanz+ expectac+] # [aspir+ piens+ tien+] # este # [trabajo puesto cargo plaza empleo] #</pattern>
+<template><srai>Que expectativas tienes de este trabajo</srai></template>
+</category>
+
+<!-- 11111111111111111111111111111111111111111111111111111111111111111111111 -->
+
+<category>
+<pattern># [trabajo puesto cargo plaza empleo trabajos puestos cargos plazas empleos] # [tien+ ten+] # [tematica especialidad] #</pattern>
+<template><srai>Que trabajos has tenido en esta tematica</srai></template>
+</category>
+
+<!-- 11111111111111111111111111111111111111111112222222222222222222222222222 -->
+
+<category>
+<pattern># [llev+ finaliz+ acab+] # [trabajo proyecto proyectos] # [a en] # [casa hogar domicilio vivienda morada] #</pattern>
+<template><srai>Normalmente te llevas el trabajo a casa</srai></template>
+</category>
+
+<!-- 11111111111111111111111111111111113333333333333333333333333333333333333 -->
+
+<category>
+<pattern># [expectativ+ aspiracio+ esperanz+ expectac+] # [salariales salario dinero cobro jornales jornal sueldo paga retribucion] #</pattern>
+<template><srai>Cuales son tus aspiraciones salariales</srai></template>
+</category>
+
+<!-- 11111111111111111111111111111111114444444444444444444444444444444444444 -->
+
+<category>
+<pattern># [como donde] # (te) [piens+ cre+ ve+] # (que estar+) # cinco anios #</pattern>
+<template><srai>Donde te ves dentro de cinco anios</srai></template>
+</category>
+
+
+<!-- 11111111111111111111111111111111115555555555555555555555555555555555555 -->
+
+<category>
+<pattern># no # [tien+ pose+ cuent+] # [experiencia madurez veterania] #</pattern>
+<template><srai>No tienes experiencia para el puesto a desempeniar</srai></template>
+</category>
+
+<category>
+<pattern># [tien+ pose+ cuent+] # no # [experiencia madurez veterania] #</pattern>
+<template><srai>No tienes experiencia para el puesto a desempeniar</srai></template>
+</category>
+
+<!-- 11111111111111111111111111111111116666666666666666666666666666666666666 -->
+<!-- FALLA COMPAniIA -->
+
+<category>
+<pattern># que # [sab+ conoc+ piens+] # [empresa compania companiia] #</pattern>
+<template><srai>Que sabes de la empresa y el puesto de trabajo</srai></template>
+</category>
+
+<category>
+<pattern># que # [sab+ conoc+ piens+] # [empresa companiia compania] # [puesto cargo empleo trabajo plaza] #</pattern>
+<template><srai>Que sabes de la empresa y el puesto de trabajo</srai></template>
+</category>
+
+<!-- 11111111111111111111111111111111117777777777777777777777777777777777777 -->
+
+<category>
+<pattern># [consider+ cre+ piens+] # no tien+ # jefe # [razon juicio entendimiento] #</pattern>
+<template><srai>Que haces cuando consideras que tu jefe no tiene la razon</srai></template>
+</category>
+
+<category>
+<pattern># [consider+ cre+ piens+] # jefe # no tien+ # [razon juicio entendimiento] #</pattern>
+<template><srai>Que haces cuando consideras que tu jefe no tiene la razon</srai></template>
+</category>
+
+<!-- 11111111111111111111111111111111118888888888888888888888888888888888888 -->
+
+<category>
+<pattern># por que # [debe+ tene+ tendr+]  # [escoge+ escoj+ eleg+] # (a) ti #</pattern>
+<template><srai>Por que deberiamos escogerte a ti</srai></template>
+</category>
+
+
+
+
+
+
+
+
+
+
+
+</aiml>
