@@ -1,0 +1,10 @@
+genero:drama@crimen@biografia
+idioma:espanol@ingles
+subtitulo:espanol@ingles
+descripcion:Narcos_es_una_serie_de_ficcion_historica_basada_en_la_lucha_contra_el_narcotrafico_en_Colombia_durante_los_anos_1990
+web:noquiero
+temporadas:2
+temporada1:Descenso@La_espada_de_simon_bolivar@Los_hombres_de_siempre@El_palacio_en_llamas@Habra_futuro@Explosivos@Lloraras_lagrimas_de_sangre@La_gran_mentira@La_catedral@Despegue@
+duracion1:57@47@47@44@55@50@51@51@51@45@
+temporada2:Por_fin_libre@Cambalache@Nuestro_hombre_en_madrid@El_bueno_el_malo_y_el_muerto@
+duracion2:53@47@47@56@

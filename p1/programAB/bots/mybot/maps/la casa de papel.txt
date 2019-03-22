@@ -1,8 +1,6 @@
-genero:crimen
-idioma:esp@ing@fra
-subtitulo:esp@ing@fra@chi@ita
-descripcion:Ocho_seniores_atracan_un_coso
-web:wwwwwww
-temporadas:1
-temporada1:El_plan@El_plan_fracasa@Este_si_funciona@
-duracion1:25@34@231@
+genero:drama@crimen@suspense
+idioma:frances@espanol@ingles
+subtitulo:espanol@ingles@frances@ruso@chino@japones
+descripcion:Ocho_atracadores_toman_rehenes_en_la_fabrica_nacional_de_moneda_y_timbre.Desde_el_encierro_su lider_manipula_a_la_policia_para_llevar_a_cabo_un_ambicioso_plan
+web:lacasaaaaadepapel
+temporadas:0
