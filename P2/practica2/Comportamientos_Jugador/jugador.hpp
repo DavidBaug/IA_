@@ -54,6 +54,12 @@ class ComportamientoJugador : public Comportamiento {
     void PintaPlan(list<Action> plan);
     bool HayObstaculoDelante(estado &st);
 
+
+
+    // Mis cosicas
+
+    Action ult_accion;
+
 };
 
 #endif

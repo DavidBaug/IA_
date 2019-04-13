@@ -30,6 +30,20 @@ Action ComportamientoJugador::think(Sensores sensores) {
 
 		bool hay_plan = pathFinding (sensores.nivel, actual, destino, plan);
 
+
+		// Ejecución plan
+		if (hay_plan and plan.size() > 0)
+		{
+			accion = plan.front();
+			plan.erase(plan.begin());
+		}
+		else
+		{
+			accion = actIDLE;
+		}
+
+		ult_accion = accion;
+
 	}
 	else {
 		// Estoy en el nivel 2
