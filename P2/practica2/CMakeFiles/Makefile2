@@ -64,8 +64,8 @@ CMAKE_BINARY_DIR = /home/david/Escritorio/IA_/P2/practica2
 
 # All Build rule for target.
 CMakeFiles/BelkanSG.dir/all: CMakeFiles/comportamientosLib.dir/all
-CMakeFiles/BelkanSG.dir/all: CMakeFiles/obj3DLib.dir/all
 CMakeFiles/BelkanSG.dir/all: CMakeFiles/modelosBelkanLib.dir/all
+CMakeFiles/BelkanSG.dir/all: CMakeFiles/obj3DLib.dir/all
 CMakeFiles/BelkanSG.dir/all: CMakeFiles/GLUILib.dir/all
 CMakeFiles/BelkanSG.dir/all: CMakeFiles/motorLib.dir/all
 	$(MAKE) -f CMakeFiles/BelkanSG.dir/build.make CMakeFiles/BelkanSG.dir/depend
@@ -142,8 +142,8 @@ clean: CMakeFiles/GLUILib.dir/clean
 
 # All Build rule for target.
 CMakeFiles/Belkan.dir/all: CMakeFiles/comportamientosLib.dir/all
-CMakeFiles/Belkan.dir/all: CMakeFiles/obj3DLib.dir/all
 CMakeFiles/Belkan.dir/all: CMakeFiles/modelosBelkanLib.dir/all
+CMakeFiles/Belkan.dir/all: CMakeFiles/obj3DLib.dir/all
 CMakeFiles/Belkan.dir/all: CMakeFiles/GLUILib.dir/all
 CMakeFiles/Belkan.dir/all: CMakeFiles/motorLib.dir/all
 	$(MAKE) -f CMakeFiles/Belkan.dir/build.make CMakeFiles/Belkan.dir/depend

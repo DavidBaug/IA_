@@ -44,11 +44,11 @@ class ComportamientoJugador : public Comportamiento {
     list<Action> plan;
 
     // Métodos privados de la clase
-    bool pathFinding(int level, const estado &origen, const estado &destino, list<Action> &plan);
+    bool pathFinding(int level, const estado &origen, const estado &destino, list<Action> &plan, Sensores sensores);
     bool pathFinding_Profundidad(const estado &origen, const estado &destino, list<Action> &plan);
 
     bool pathFinding_Anchura(const estado &origen, const estado &destino, list<Action> &plan);
-    bool pathFinding_CosteUniforme(const estado &origen, const estado &destino, list<Action> &plan);
+    bool pathFinding_CosteUniforme(const estado &origen, const estado &destino, list<Action> &plan, Sensores sensores);
 
 
     void PintaPlan(list<Action> plan);
@@ -58,7 +58,11 @@ class ComportamientoJugador : public Comportamiento {
 
     // Mis cosicas
 
-    Action ult_accion;
+    Action ultimaAccion;
+    bool hayPlan;
+
+    void pintaBordes();
+
 
 };
 

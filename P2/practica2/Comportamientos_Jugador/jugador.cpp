@@ -18,45 +18,75 @@ Action ComportamientoJugador::think(Sensores sensores) {
 		if (sensores.mensajeF != -1){
 			fil = sensores.mensajeF;
 			col = sensores.mensajeC;
-			brujula = 0; // 0 corresponde con Norte
+			ultimaAccion = actIDLE;
+		}
 
+		switch (ultimaAccion){
+			case actTURN_R:
+				brujula = (brujula + 1) % 4;
+				break;
+			case actTURN_L:
+				brujula = (brujula + 3) % 4;
+				break;
+			case actFORWARD:
+				switch (brujula){
+					case 0:
+						fil--; break;
+					case 1:
+						col++;break;
+					case 2:
+						fil++;break;
+					case 3:
+						col--;break;
+
+			}
+			cout << "fil: " << fil << "  col: " << col << " or: " << brujula << endl;
+		}
+
+		if (sensores.destinoF != destino.fila or sensores.destinoC != destino.columna) {
+			destino.fila = sensores.destinoF;
+			destino.columna = sensores.destinoC;
+			hayPlan = false;
+		}
+
+		if (!hayPlan) {
 			actual.fila = fil;
 			actual.columna = col;
 			actual.orientacion = brujula;
+			hayPlan = pathFinding (sensores.nivel, actual, destino, plan, sensores);
 
-			destino.fila = sensores.destinoF;
-			destino.columna = sensores.destinoC;
 		}
-
-		bool hay_plan = pathFinding (sensores.nivel, actual, destino, plan);
 
 
 		// Ejecución plan
-		if (hay_plan and plan.size() > 0)
-		{
+		if (hayPlan and plan.size() > 0){
 			accion = plan.front();
 			plan.erase(plan.begin());
 		}
-		else
-		{
-			accion = actIDLE;
+		else{
+			if (sensores.terreno[2]=='P' or sensores.terreno[2]=='M' or sensores.terreno[2]=='a'
+						or sensores.terreno[2]=='D') {
+				accion = actTURN_R;
+			}else{
+				accion = actFORWARD;
+			}
 		}
 
-		ult_accion = accion;
+		ultimaAccion = accion;
 
 	}
 	else {
 		// Estoy en el nivel 2
 		cout << "Aún no implementado el nivel 2" << endl;
 	}
-
+	std::cout << "Accion:"<<accion << '\n';
   return accion;
 }
 
 
 // Llama al algoritmo de busqueda que se usará en cada comportamiento del agente
 // Level representa el comportamiento en el que fue iniciado el agente.
-bool ComportamientoJugador::pathFinding (int level, const estado &origen, const estado &destino, list<Action> &plan){
+bool ComportamientoJugador::pathFinding (int level, const estado &origen, const estado &destino, list<Action> &plan, Sensores sensores){
 	switch (level){
 		case 1: cout << "Busqueda en profundad\n";
 			      return pathFinding_Profundidad(origen,destino,plan);
@@ -65,7 +95,7 @@ bool ComportamientoJugador::pathFinding (int level, const estado &origen, const 
 						return pathFinding_Anchura(origen,destino,plan);
 						break;
 		case 3: cout << "Busqueda Costo Uniforme\n";
-						// Incluir aqui la llamada al busqueda de costo uniforme
+			      return pathFinding_CosteUniforme(origen,destino,plan, sensores);
 						break;
 		case 4: cout << "Busqueda para el reto\n";
 						// Incluir aqui la llamada al algoritmo de búsqueda usado en el nivel 2
@@ -124,6 +154,18 @@ bool ComportamientoJugador::HayObstaculoDelante(estado &st){
 struct nodo{
 	estado st;
 	list<Action> secuencia;
+};
+
+struct nodo_cola{
+	estado st;
+	int coste;
+	list<Action> secuencia;
+};
+
+struct ComparaCola{
+	bool operator()(const nodo_cola &a,const nodo_cola &b)const{
+		return a.coste > b.coste;
+	}
 };
 
 struct ComparaEstados{
@@ -284,21 +326,23 @@ bool ComportamientoJugador::pathFinding_Anchura(const estado &origen, const esta
 	return false;
 }
 
+
+
 // Implementación de la búsqueda en anchura.
 // Entran los puntos origen y destino y devuelve la
 // secuencia de acciones en plan, una lista de acciones.
-bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, const estado &destino, list<Action> &plan) {
+bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, const estado &destino, list<Action> &plan, Sensores sensores) {
 	//Borro la lista
 	cout << "Calculando plan\n";
 	plan.clear();
 	set<estado,ComparaEstados> generados; // Lista de Cerrados
-	queue<nodo> cola;											// Lista de Abiertos
+	priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> cola;			// Lista de Abiertos
 
-	// USAR PRIORITY QUEUE (?)
+  nodo_cola current;
 
-  nodo current;
 	current.st = origen;
 	current.secuencia.empty();
+	current.coste = 0;
 
 	cola.push(current);
 
@@ -308,8 +352,11 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 		generados.insert(current.st);
 
 		// Generar descendiente de girar a la derecha
-		nodo hijoTurnR = current;
+		nodo_cola hijoTurnR = current;
+		hijoTurnR.coste += 1;
+
 		hijoTurnR.st.orientacion = (hijoTurnR.st.orientacion+1)%4;
+
 		if (generados.find(hijoTurnR.st) == generados.end()){
 			hijoTurnR.secuencia.push_back(actTURN_R);
 			cola.push(hijoTurnR);
@@ -317,7 +364,9 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 		}
 
 		// Generar descendiente de girar a la izquierda
-		nodo hijoTurnL = current;
+		nodo_cola hijoTurnL = current;
+		hijoTurnL.coste += 1;
+
 		hijoTurnL.st.orientacion = (hijoTurnL.st.orientacion+3)%4;
 		if (generados.find(hijoTurnL.st) == generados.end()){
 			hijoTurnL.secuencia.push_back(actTURN_L);
@@ -325,7 +374,19 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 		}
 
 		// Generar descendiente de avanzar
-		nodo hijoForward = current;
+		nodo_cola hijoForward = current;
+		char aux = mapaResultado[hijoForward.st.fila][hijoForward.st.columna];
+
+		if (aux == 'A') {
+			hijoForward.coste += 10;
+		}else if(aux == 'B'){
+			hijoForward.coste+= 5;
+		}else if(aux == 'S'){
+			hijoForward.coste+= 2;
+		}else{
+			hijoForward.coste += 1;
+		}
+
 		if (!HayObstaculoDelante(hijoForward.st)){
 			if (generados.find(hijoForward.st) == generados.end()){
 				hijoForward.secuencia.push_back(actFORWARD);
@@ -335,7 +396,7 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 
 		// Tomo el siguiente valor de la cola
 		if (!cola.empty()){
-			current = cola.front();
+			current = cola.top();
 		}
 	}
 
@@ -358,7 +419,23 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 	return false;
 }
 
+void eliminaRepetidos{vector<nodo_cola> cola}{
+	for (std::vector<nodo_cola>::iterator it = cola.begin(); it != cola.end(); ++it){
 
+		std::vector<nodo_cola>::iterator nodo = find(it.begin(), it.end(), it.st);
+		multiset<nodo_cola, ComparaCola> repetidos;
+		while (nodo != null) {
+			repetidos.insert(nodo);
+			cola.erase(nodo);
+			nodo = find(it.begin(), it.end(), aux.st);
+		}
+
+		cola.push_back(repetidos.begin())
+)
+
+
+
+}
 
 
 // Sacar por la términal la secuencia del plan obtenido
@@ -423,4 +500,33 @@ void ComportamientoJugador::VisualizaPlan(const estado &st, const list<Action> &
 
 int ComportamientoJugador::interact(Action accion, int valor){
   return false;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+void ComportamientoJugador::pintaBordes() {
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < mapaResultado.size(); j++) {
+			mapaResultado[i][j] = 'P';
+			mapaResultado[j][i] = 'P';
+			if (i != 3) {
+				mapaResultado[mapaResultado.size() - i - 1][j] = 'P';
+				mapaResultado[j][mapaResultado.size() - i - 1] = 'P';
+			}
+		}
+	}
 }
