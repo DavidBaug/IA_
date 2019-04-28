@@ -164,7 +164,7 @@ struct nodo_cola{
 
 struct ComparaCola{
 	bool operator()(const nodo_cola &a,const nodo_cola &b)const{
-		return a.coste < b.coste;
+		return a.coste > b.coste;
 	}
 };
 
@@ -338,6 +338,10 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 	set<estado,ComparaEstados> generados; // Lista de Cerrados
 	priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> cola;			// Lista de Abiertos
 
+
+	priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> nodos;
+	priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> final;
+
   nodo_cola current;
 
 	current.st = origen;
@@ -346,10 +350,14 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 
 	cola.push(current);
 
+	// std::cout << "uwu1" << '\n';
+
   while (!cola.empty() and (current.st.fila!=destino.fila or current.st.columna != destino.columna)){
 
 		cola.pop();
 		generados.insert(current.st);
+
+		// std::cout << "uwu2" << '\n';
 
 		// Generar descendiente de girar a la derecha
 		nodo_cola hijoTurnR = current;
@@ -363,6 +371,8 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 
 		}
 
+		// std::cout << "uwu3" << '\n';
+
 		// Generar descendiente de girar a la izquierda
 		nodo_cola hijoTurnL = current;
 		hijoTurnL.coste += 1;
@@ -372,6 +382,8 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 			hijoTurnL.secuencia.push_back(actTURN_L);
 			cola.push(hijoTurnL);
 		}
+
+		// std::cout << "uwu4" << '\n';
 
 		// Generar descendiente de avanzar
 		nodo_cola hijoForward = current;
@@ -394,8 +406,8 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 			}
 		}
 
-		priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> nodos;
-		priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> final;
+
+/*
 
 		while(!cola.empty()) {
 			nodo_cola it1 = cola.top();
@@ -408,15 +420,15 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 				nodo_cola it2 = aux.top();
 				aux.pop();
 
-				if (it1.st == it2.st) {
+				if (it1.st.fila == it2.st.fila && it1.st.columna == it2.st.columna) {
 					nodos.push(it2);
-				}else{
-					aux.pop()
 				}
 
 			}
 
+
 			final.push(nodos.top());
+			while (!nodos.empty()){ nodos.pop();}
 
 		}
 
@@ -425,7 +437,7 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 			cola.push(final.top());
 			final.pop();
 		}
-
+*/
 
 
 
