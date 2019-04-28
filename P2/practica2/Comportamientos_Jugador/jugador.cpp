@@ -164,7 +164,7 @@ struct nodo_cola{
 
 struct ComparaCola{
 	bool operator()(const nodo_cola &a,const nodo_cola &b)const{
-		return a.coste > b.coste;
+		return a.coste < b.coste;
 	}
 };
 
@@ -394,6 +394,41 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 			}
 		}
 
+		priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> nodos;
+		priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> final;
+
+		while(!cola.empty()) {
+			nodo_cola it1 = cola.top();
+			nodos.push(it1);
+			cola.pop();
+
+			priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola>	aux = cola;
+
+			while (!aux.empty()) {
+				nodo_cola it2 = aux.top();
+				aux.pop();
+
+				if (it1.st == it2.st) {
+					nodos.push(it2);
+				}else{
+					aux.pop()
+				}
+
+			}
+
+			final.push(nodos.top());
+
+		}
+
+		while (!cola.empty()){ cola.pop();}
+		for (size_t i = 0; i < final.size(); i++) {
+			cola.push(final.top());
+			final.pop();
+		}
+
+
+
+
 		// Tomo el siguiente valor de la cola
 		if (!cola.empty()){
 			current = cola.top();
@@ -419,23 +454,6 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 	return false;
 }
 
-void eliminaRepetidos{vector<nodo_cola> cola}{
-	for (std::vector<nodo_cola>::iterator it = cola.begin(); it != cola.end(); ++it){
-
-		std::vector<nodo_cola>::iterator nodo = find(it.begin(), it.end(), it.st);
-		multiset<nodo_cola, ComparaCola> repetidos;
-		while (nodo != null) {
-			repetidos.insert(nodo);
-			cola.erase(nodo);
-			nodo = find(it.begin(), it.end(), aux.st);
-		}
-
-		cola.push_back(repetidos.begin())
-)
-
-
-
-}
 
 
 // Sacar por la términal la secuencia del plan obtenido

@@ -62,8 +62,6 @@ class ComportamientoJugador : public Comportamiento {
     bool hayPlan;
 
     void pintaBordes();
-
-
 };
 
 #endif
