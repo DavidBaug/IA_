@@ -407,37 +407,33 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 		}
 
 
-/*
+		priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola>	colaux = cola;
+		priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola>	final;
 
-		while(!cola.empty()) {
-			nodo_cola it1 = cola.top();
-			nodos.push(it1);
-			cola.pop();
+		while(!colaux.empty()) {
+			nodo_cola mejor = colaux.top();
+			colaux.pop();
 
-			priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola>	aux = cola;
+			while (!cola.empty()) {
+				nodo_cola it = cola.top();
+				cola.pop();
 
-			while (!aux.empty()) {
-				nodo_cola it2 = aux.top();
-				aux.pop();
-
-				if (it1.st.fila == it2.st.fila && it1.st.columna == it2.st.columna) {
-					nodos.push(it2);
+				if (mejor.st.fila == it.st.fila && mejor.st.columna == it.st.columna && mejor.coste > it.coste) {
+					mejor = it;
 				}
-
 			}
 
-
-			final.push(nodos.top());
-			while (!nodos.empty()){ nodos.pop();}
+			final.push(mejor);
 
 		}
 
-		while (!cola.empty()){ cola.pop();}
-		for (size_t i = 0; i < final.size(); i++) {
-			cola.push(final.top());
-			final.pop();
+		while (!final.empty()) {
+			cola.push(final.top()); final.pop();
 		}
-*/
+
+		while (!colaux.empty()) {
+			colaux.pop();
+		}
 
 
 
