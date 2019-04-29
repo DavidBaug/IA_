@@ -339,9 +339,6 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 	priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> cola;			// Lista de Abiertos
 
 
-	priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> nodos;
-	priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> final;
-
   nodo_cola current;
 
 	current.st = origen;
@@ -406,34 +403,29 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 			}
 		}
 
+		// Aux para recorrer cola
+		multiset<nodo_cola, ComparaCola> uwu;
 
-		priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola>	colaux = cola;
-		priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola>	final;
+		nodo_cola &mejor = current;
 
-		while(!colaux.empty()) {
-			nodo_cola mejor = colaux.top();
-			colaux.pop();
+		while (!cola.empty()) {
+			uwu.insert(cola.top());
+			cola.pop();
+		}
 
-			while (!cola.empty()) {
-				nodo_cola it = cola.top();
-				cola.pop();
+		for(const nodo_cola &v : uwu) {
 
-				if (mejor.st.fila == it.st.fila && mejor.st.columna == it.st.columna && mejor.coste > it.coste) {
-					mejor = it;
+			if (v.st.fila == current.st.fila && v.st.columna == current.st.columna) {
+				if (v.coste < mejor.coste) {
+						mejor = v;
 				}
+			}else{
+				cola.push(v);
 			}
 
-			final.push(mejor);
-
 		}
 
-		while (!final.empty()) {
-			cola.push(final.top()); final.pop();
-		}
-
-		while (!colaux.empty()) {
-			colaux.pop();
-		}
+		cola.push(mejor);
 
 
 
