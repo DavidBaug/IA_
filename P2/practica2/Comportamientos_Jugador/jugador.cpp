@@ -403,24 +403,25 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 			}
 		}
 
+
 		// Aux para recorrer cola
 		multiset<nodo_cola, ComparaCola> uwu;
 
-		nodo_cola &mejor = current;
+		nodo_cola mejor = current;
 
 		while (!cola.empty()) {
 			uwu.insert(cola.top());
 			cola.pop();
 		}
 
-		for(const nodo_cola &v : uwu) {
+		for(multiset<nodo_cola, ComparaCola>::iterator it = uwu.begin(); it != uwu.end(); ++it) {
 
 			if (v.st.fila == current.st.fila && v.st.columna == current.st.columna) {
 				if (v.coste < mejor.coste) {
-						mejor = v;
+						mejor = it;
 				}
 			}else{
-				cola.push(v);
+				cola.push(it);
 			}
 
 		}
