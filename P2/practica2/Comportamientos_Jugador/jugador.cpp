@@ -7,6 +7,8 @@
 #include <stack>
 #include <queue>
 
+
+
 // Este es el método principal que debe contener los 4 Comportamientos_Jugador
 // que se piden en la práctica. Tiene como entrada la información de los
 // sensores y devuelve la acción a realizar.
@@ -178,6 +180,9 @@ struct ComparaEstados{
 	}
 };
 
+void quitaRepetidos(priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> &cola, const nodo_cola &current);
+
+
 
 // Implementación de la búsqueda en profundidad.
 // Entran los puntos origen y destino y devuelve la
@@ -347,12 +352,14 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 
 	cola.push(current);
 
-	// std::cout << "uwu1" << '\n';
 
   while (!cola.empty() and (current.st.fila!=destino.fila or current.st.columna != destino.columna)){
 
+
 		cola.pop();
 		generados.insert(current.st);
+
+		// quitaRepetidos(cola, current);
 
 		// std::cout << "uwu2" << '\n';
 
@@ -405,38 +412,16 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 	  
 	  // Find multiset (?)
 
-
-		// Aux para recorrer cola
-		multiset<nodo_cola, ComparaCola> uwu;
-
-		nodo_cola mejor = current;
-
-		while (!cola.empty()) {
-			uwu.insert(cola.top());
-			cola.pop();
-		}
-
-		for(multiset<nodo_cola, ComparaCola>::iterator it = uwu.begin(); it != uwu.end(); ++it) {
-
-			if (v.st.fila == current.st.fila && v.st.columna == current.st.columna) {
-				if (v.coste < mejor.coste) {
-						mejor = it;
-				}
-			}else{
-				cola.push(it);
-			}
-
-		}
-
-		cola.push(mejor);
-
-
-
 		// Tomo el siguiente valor de la cola
 		if (!cola.empty()){
 			current = cola.top();
 		}
+
+
+
 	}
+
+
 
   cout << "Terminada la busqueda\n";
 
@@ -455,6 +440,33 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 
 
 	return false;
+}
+
+void quitaRepetidos(priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> &cola, const nodo_cola &current){
+
+			// Aux para recorrer cola
+			multiset<nodo_cola, ComparaCola> uwu;
+
+			nodo_cola mejor = current;
+
+			while (!cola.empty()) {
+				uwu.insert(cola.top());
+				cola.pop();
+			}
+
+			for(multiset<nodo_cola, ComparaCola>::iterator it = uwu.begin(); it != uwu.end(); ++it) {
+
+				if (it->st.fila == current.st.fila && it->st.columna == current.st.columna) {
+					if (it->coste < mejor.coste) {
+							mejor = *it;
+					}
+				}else{
+					cola.push(*it);
+				}
+
+			}
+
+			cola.push(mejor);
 }
 
 

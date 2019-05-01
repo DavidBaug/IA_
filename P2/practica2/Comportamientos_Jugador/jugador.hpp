@@ -5,6 +5,7 @@
 
 #include <list>
 
+
 struct estado {
   int fila;
   int columna;
