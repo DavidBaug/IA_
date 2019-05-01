@@ -551,3 +551,84 @@ void ComportamientoJugador::pintaBordes() {
 		}
 	}
 }
+
+void ComportamientoJugador::guardarVisitado(Sensores sensores){
+	mapaResultado[fil][col] = sensores.terreno[0];
+
+	if (brujula == 0){
+		mapaResultado[fil-1][col-1] = sensores.terreno[1];
+		mapaResultado[fil-1][col] = sensores.terreno[2];
+		mapaResultado[fil-1][col+1] = sensores.terreno[3];
+
+		mapaResultado[fil-2][col-2] = sensores.terreno[4];
+		mapaResultado[fil-2][col-1] = sensores.terreno[5];
+		mapaResultado[fil-2][col] = sensores.terreno[6];
+		mapaResultado[fil-2][col+1] = sensores.terreno[7];
+		mapaResultado[fil-2][col+2] = sensores.terreno[8];
+
+		mapaResultado[fil-3][col-3] = sensores.terreno[9];
+		mapaResultado[fil-3][col-2] = sensores.terreno[10];
+		mapaResultado[fil-3][col-1] = sensores.terreno[11];
+		mapaResultado[fil-3][col] = sensores.terreno[12];
+		mapaResultado[fil-3][col+1] = sensores.terreno[13];
+		mapaResultado[fil-3][col+2] = sensores.terreno[14];
+		mapaResultado[fil-3][col+3] = sensores.terreno[15];
+	}
+	else if (brujula == 1){
+		mapaResultado[fil-1][col+1] = sensores.terreno[1];
+		mapaResultado[fil][col+1] = sensores.terreno[2];
+		mapaResultado[fil+1][col+1] = sensores.terreno[3];
+
+		mapaResultado[fil-2][col+2] = sensores.terreno[4];
+		mapaResultado[fil-1][col+2] = sensores.terreno[5];
+		mapaResultado[fil][col+2] = sensores.terreno[6];
+		mapaResultado[fil+1][col+2] = sensores.terreno[7];
+		mapaResultado[fil+2][col+2] = sensores.terreno[8];
+
+		mapaResultado[fil-3][col+3] = sensores.terreno[9];
+		mapaResultado[fil-2][col+3] = sensores.terreno[10];
+		mapaResultado[fil-1][col+3] = sensores.terreno[11];
+		mapaResultado[fil][col+3] = sensores.terreno[12];
+		mapaResultado[fil+1][col+3] = sensores.terreno[13];
+		mapaResultado[fil+2][col+3] = sensores.terreno[14];
+		mapaResultado[fil+3][col+3] = sensores.terreno[15];
+		}
+	else if (brujula == 2){
+		mapaResultado[fil+1][col+1] = sensores.terreno[1];
+		mapaResultado[fil+1][col] = sensores.terreno[2];
+		mapaResultado[fil+1][col-1] = sensores.terreno[3];
+
+		mapaResultado[fil+2][col+2] = sensores.terreno[4];
+		mapaResultado[fil+2][col+1] = sensores.terreno[5];
+		mapaResultado[fil+2][col] = sensores.terreno[6];
+		mapaResultado[fil+2][col-1] = sensores.terreno[7];
+		mapaResultado[fil+2][col-2] = sensores.terreno[8];
+
+		mapaResultado[fil+3][col+3] = sensores.terreno[9];
+		mapaResultado[fil+3][col+2] = sensores.terreno[10];
+		mapaResultado[fil+3][col+1] = sensores.terreno[11];
+		mapaResultado[fil+3][col] = sensores.terreno[12];
+		mapaResultado[fil+3][col-1] = sensores.terreno[13];
+		mapaResultado[fil+3][col-2] = sensores.terreno[14];
+		mapaResultado[fil+3][col-3] = sensores.terreno[15];
+	}
+	else if (brujula == 3){
+		mapaResultado[fil+1][col-1] = sensores.terreno[1];
+		mapaResultado[fil][col-1] = sensores.terreno[2];
+		mapaResultado[fil-1][col-1] = sensores.terreno[3];
+
+		mapaResultado[fil+2][col-2] = sensores.terreno[4];
+		mapaResultado[fil+1][col-2] = sensores.terreno[5];
+		mapaResultado[fil][col-2] = sensores.terreno[6];
+		mapaResultado[fil-1][col-2] = sensores.terreno[7];
+		mapaResultado[fil-2][col-2] = sensores.terreno[8];
+
+		mapaResultado[fil+3][col-3] = sensores.terreno[9];
+		mapaResultado[fil+2][col-3] = sensores.terreno[10];
+		mapaResultado[fil+1][col-3] = sensores.terreno[11];
+		mapaResultado[fil][col-3] = sensores.terreno[12];
+		mapaResultado[fil-1][col-3] = sensores.terreno[13];
+		mapaResultado[fil-2][col-3] = sensores.terreno[14];
+		mapaResultado[fil-3][col-3] = sensores.terreno[15];
+	}
+}
