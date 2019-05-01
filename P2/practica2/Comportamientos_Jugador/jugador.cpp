@@ -166,7 +166,7 @@ struct nodo_cola{
 
 struct ComparaCola{
 	bool operator()(const nodo_cola &a,const nodo_cola &b)const{
-		return a.coste > b.coste;
+		return a.coste >= b.coste;
 	}
 };
 
@@ -343,6 +343,7 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 	set<estado,ComparaEstados> generados; // Lista de Cerrados
 	priority_queue<nodo_cola, vector<nodo_cola>, ComparaCola> cola;			// Lista de Abiertos
 
+	multiset<estado, ComparaEstados> nodos;
 
   nodo_cola current;
 
@@ -351,17 +352,14 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 	current.coste = 0;
 
 	cola.push(current);
+	nodos.insert(current.st);
 
+	int counts;
 
   while (!cola.empty() and (current.st.fila!=destino.fila or current.st.columna != destino.columna)){
 
-
 		cola.pop();
 		generados.insert(current.st);
-
-		// quitaRepetidos(cola, current);
-
-		// std::cout << "uwu2" << '\n';
 
 		// Generar descendiente de girar a la derecha
 		nodo_cola hijoTurnR = current;
@@ -369,11 +367,20 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 
 		hijoTurnR.st.orientacion = (hijoTurnR.st.orientacion+1)%4;
 
-		if (generados.find(hijoTurnR.st) == generados.end()){
-			hijoTurnR.secuencia.push_back(actTURN_R);
-			cola.push(hijoTurnR);
+		// multiset<nodo_cola, ComparaCola>::iterator it = nodos.find(hijoTurnR.st);
 
+		counts = nodos.count(hijoTurnR.st);
+				// std::cout << "counts R " << counts << '\n';
+
+		if (counts == 0) {
+			if (generados.find(hijoTurnR.st) == generados.end()){
+				hijoTurnR.secuencia.push_back(actTURN_R);
+				cola.push(hijoTurnR);
+				nodos.insert(hijoTurnR.st);
+			}
 		}
+
+
 
 		// std::cout << "uwu3" << '\n';
 
@@ -382,11 +389,18 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 		hijoTurnL.coste += 1;
 
 		hijoTurnL.st.orientacion = (hijoTurnL.st.orientacion+3)%4;
-		if (generados.find(hijoTurnL.st) == generados.end()){
-			hijoTurnL.secuencia.push_back(actTURN_L);
-			cola.push(hijoTurnL);
-		}
 
+		counts = nodos.count(hijoTurnL.st);
+
+		// std::cout << "counts L " << counts << '\n';
+
+		if (counts == 0) {
+			if (generados.find(hijoTurnL.st) == generados.end()){
+				hijoTurnL.secuencia.push_back(actTURN_L);
+				cola.push(hijoTurnL);
+				nodos.insert(hijoTurnL.st);
+			}
+		}
 		// std::cout << "uwu4" << '\n';
 
 		// Generar descendiente de avanzar
@@ -404,20 +418,23 @@ bool ComportamientoJugador::pathFinding_CosteUniforme(const estado &origen, cons
 		}
 
 		if (!HayObstaculoDelante(hijoForward.st)){
-			if (generados.find(hijoForward.st) == generados.end()){
-				hijoForward.secuencia.push_back(actFORWARD);
-				cola.push(hijoForward);
-			}
+		// 	counts = nodos.count(hijoTurnR.st);
+		// std::cout << "counts F " << counts << '\n';
+		// 	if (counts == 0) {
+				if (generados.find(hijoForward.st) == generados.end()){
+					hijoForward.secuencia.push_back(actFORWARD);
+					cola.push(hijoForward);
+					nodos.insert(hijoForward.st);
+				}
+			// }
 		}
-	  
+
 	  // Find multiset (?)
 
 		// Tomo el siguiente valor de la cola
 		if (!cola.empty()){
 			current = cola.top();
 		}
-
-
 
 	}
 
