@@ -62,6 +62,7 @@ class ComportamientoJugador : public Comportamiento {
     bool hayPlan;
 
     void pintaBordes();
+    void guardarVisitado(Sensores sensores);
 };
 
 #endif
