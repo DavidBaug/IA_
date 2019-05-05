@@ -7,6 +7,7 @@
 #include <vector>
 
 
+
 struct estado {
   int fila;
   int columna;
@@ -69,7 +70,10 @@ class ComportamientoJugador : public Comportamiento {
 
     pair<int,int> devuelveK(int i);
 
+<<<<<<< HEAD:P2/practica2/jugador.hpp
     int filc, colc;
+=======
+>>>>>>> master:P2/practica2/Comportamientos_Jugador/jugador.hpp
 
     // Mis cosicas
 
@@ -85,6 +89,7 @@ class ComportamientoJugador : public Comportamiento {
     int num_avances;
 
     char mapaAux[200][200];
+<<<<<<< HEAD:P2/practica2/jugador.hpp
     int mapaCosteAux[200][200];
 
     // vector<int> mapaCoste;
@@ -99,6 +104,10 @@ class ComportamientoJugador : public Comportamiento {
 
     double porcentajeMapa();
     int porcentajeVariable;
+=======
+
+    list<Action> acciones;
+>>>>>>> master:P2/practica2/Comportamientos_Jugador/jugador.hpp
 
     list<Action> rutaPK1(int i);
     void pintaBordes();
