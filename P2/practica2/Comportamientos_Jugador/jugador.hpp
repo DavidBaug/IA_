@@ -10,6 +10,14 @@ struct estado {
   int fila;
   int columna;
   int orientacion;
+
+  bool operator==(const estado &n) const{
+		if (this->fila == n.fila and this->columna == n.columna)
+			return true;
+		else
+			return false;
+	}
+
 };
 
 class ComportamientoJugador : public Comportamiento {
@@ -50,11 +58,14 @@ class ComportamientoJugador : public Comportamiento {
 
     bool pathFinding_Anchura(const estado &origen, const estado &destino, list<Action> &plan);
     bool pathFinding_CosteUniforme(const estado &origen, const estado &destino, list<Action> &plan, Sensores sensores);
+    bool pathFinding_A(const estado &origen, const estado &destino, list<Action> &plan, Sensores sensores);
 
 
     void PintaPlan(list<Action> plan);
     bool HayObstaculoDelante(estado &st);
+    void colocar(Sensores sensores);
 
+    pair<int,int> devuelveK(int i);
 
 
     // Mis cosicas
@@ -62,8 +73,25 @@ class ComportamientoJugador : public Comportamiento {
     Action ultimaAccion;
     bool hayPlan;
 
+    bool primera = true;
+    bool situado = false;
+
+    bool objetivo_fijado;
+    int pos_objetivo;
+    Action Giro;
+    int num_avances;
+
+    char mapaAux[200][200];
+
+    list<Action> acciones;
+
+    list<Action> rutaPK1(int i);
     void pintaBordes();
-    void guardarVisitado(Sensores sensores);
+    void guardaMapa(Sensores sensores);
+    int heuristica(estado a, estado b);
+    void rutaPK(int & num_avances, Action & Giro);
+
+
 };
 
 #endif
