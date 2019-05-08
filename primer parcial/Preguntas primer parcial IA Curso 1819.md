@@ -6,16 +6,16 @@
 
 Un agente es un sistema situado en un entorno con capacidad para percibirlo mediante una serie de sensores, procesar la información obtenida y actuar en consecuencia gracias a un conjunto de actuadores.
 
-Un agente racional es aquel que responde de forma correcta al entorno y que de un conjunto de acciones posibles escoge la más favorable para conseguir su objetivo. Un agente inteligente es un agente racional que consigue pasar el test de Turing. Dicho test prueba si el agente presenta un comportamiento inteligente como el de un ser humano en caso de que otro ser humano no sea capaz de distinguir si está tratando con otro humano o con una máquina.
+Un agente racional es aquel que responde de forma correcta al entorno y que de un conjunto de acciones posibles escoge la más favorable para conseguir su objetivo. Un agente inteligente es un agente racional que consigue pasar el test de Turing. Dicho test comprueba si el agente presenta un comportamiento inteligente como el de un ser humano sólo si otro ser humano no es capaz de distinguir si está tratando con una persona o con una máquina.
 
 Podemos dividir la arquitectura de los agentes por topología o por nivel de abstracción:
 
 - **Topología**
   - **Arquitectura horizontal:** En esta arquitectura todas las capas tienen acceso a los sensores y a los actuadores. Cada capa es experta en una acción y produce una acción específica. Esta arquitectura presenta una salida consistente aunque también un cuello de botella a la hora de procesar la información.
-  - **Arquitectura vertical:** Solo una capa tiene acceso a los sensores y actuadores, y mediante paso de mensajes la información se transmite a las distintas capas hasta llegar a conseguir la acción. El problema de esta arquitectura es que no es tolerante a fallos.
+  - **Arquitectura vertical:** Solo una capa tiene acceso a los sensores y actuadores, y mediante paso de mensajes, la información se transmite a las distintas capas hasta llegar a conseguir la acción. El problema de esta arquitectura es que no es tolerante a fallos.
   - **Arquitectura híbrida:** Combinación de las anteriores.
 - **Nivel de abstracción**
-  - **Arquitectura reactiva:** Se caracteriza porque opera rápidamente y efectivamente sin la necesidad de procesar una representación simbólica del entorno. La decisión que toman está basada en el presente (aunque pueden hacer uso de acciones anteriores). Su actuación es estímulo-respuesta.
+  - **Arquitectura reactiva:** Se caracteriza porque opera rápidamente y efectivamente sin la necesidad de procesar una representación simbólica del entorno. La decisión que toma está basada en el presente (aunque pueden hacer uso de acciones anteriores). Su actuación es estímulo-respuesta.
   - **Arquitectura deliberativa:** Esta arquitectura contiene un mundo representado explícitamente y un modelo lógico del mismo, y en la cual las acciones son tomadas por medio de un razonamiento lógico.
   - **Arquitectura híbrida:** Combinación de las anteriores.
 
