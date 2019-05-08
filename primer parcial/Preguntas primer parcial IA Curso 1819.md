@@ -48,7 +48,7 @@ Podemos distinguir 4 métodos distintos de búsqueda no informada.
 
 
 
-Una heurística es un criterio, método o principio para decidir cual, entre una serie de alternativas acciones, promete ser la más efectiva a la hora de lograr alguna meta. Es importante que la heurística elegida funcione bien ya que una mala decisión puede causar un gran problema para el funcionamiento del algoritmo.
+Una heurística es un criterio, método o principio para decidir cuál, de entre una serie de acciones, promete ser la más efectiva a la hora de lograr alguna meta. Es importante que la heurística elegida funcione bien ya que una mala decisión puede causar un gran problema para el funcionamiento del algoritmo.
 
 La construcción de funciones heurísticas normalmente son a través de modelos simplificados. Es difícil encontrar una buena nada más empezar, ya que la iremos descubriendo poco a poco.
 
@@ -96,13 +96,11 @@ En estos métodos se simula una búsqueda en profundidad en la que buscamos expa
 
 ### 7.- Elementos esenciales del algoritmo A*.
 
+Se trata de un algoritmo de tipo “primero el mejor” donde f(n) es la suma de dos componentes, g(n) y h(n).
 
+En este algoritmo g(n) representará la distancia/coste desde el nodo inicial al actual y h(n) representará una estimación de la distancia/coste desde el nodo actual hasta el objetivo.
 
-Se trata de un algoritmo “primero el mejor” donde f(n) es la suma de dos componentes, g(n) y h(n).
-
-En este algoritmo g(n) representará la distancia/coste desde el nodo inicial al actual. Y h(n) representará una estimación de la distancia/coste desde el nodo actual hasta el objetivo.
-
-Dicho algoritmo usa dos listas, una destinada para almacenar los nodos generados y otra para guardar los que ya han sido explorados. Al ser un algoritmo "primero el mejor", ordenaremos la lista de nodos generados, que llamaremos lista de abiertos, por los que presenten un f(n) mejor. Y usaremos la lista de nodos ya explorados, a la que llamaremos lista de cerrados, para poder reconstruir el camino una vez hallada la solución.
+Dicho algoritmo usa dos listas, una destinada para almacenar los nodos generados y otra para guardar los que ya han sido explorados. Al ser un algoritmo "primero el mejor", ordenaremos la lista de nodos generados, que llamaremos lista de abiertos, por los que presenten un f(n) mejor. Y usaremos la lista de nodos ya explorados, a la que llamaremos lista de cerrados, para poder reconstruir el camino una vez hallada la solución, aunque deberemos actualizar los nodos en caso de encontrar mejores soluciones a las ya exploradas.
 
 El funcionamiento de este algoritmo es idéntico al de la búsqueda de costo uniforme suponiendo que no usamos una heurística para estimar la distancia desde el nodo actual al objetivo.
 
@@ -114,8 +112,7 @@ El rendimiento de este algoritmo depende de la calidad de la función heurístic
 
 
 
-Los algoritmos genéticos son métodos de optimización basados en una simulación parcial de los
-mecanismos de la evolución natural. Por lo que presentan una serie de elementos inspirados en la evolución biológica y su base genético-molecular.
+Los algoritmos genéticos son métodos de optimización basados en una simulación parcial de los mecanismos de la evolución natural. Por lo que presentan una serie de elementos inspirados en la evolución biológica y su base genético-molecular.
 
 Podemos distinguir los siguientes elementos:
 
@@ -130,4 +127,4 @@ Podemos distinguir los siguientes elementos:
 
 
 
-Estos algoritmos parten de una población inicial, y con el paso del tiempo mediante mutaciones y cruces la población obtiene una mejor adecuación al entorno. Son algoritmos de tipo "generar y probar" con un componente estocástico basado en poblaciones que permite reducir la diversidad y obtener soluciones óptimas.
+Estos algoritmos parten de una población inicial, y con el paso del tiempo, mediante mutaciones y cruces, la población obtiene una mejor adecuación al entorno. Son algoritmos de tipo "generar y probar" con un componente estocástico basado en poblaciones que permite reducir la diversidad y obtener soluciones óptimas.
