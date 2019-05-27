@@ -157,4 +157,6 @@ Environment::ActionType Player::Think(){
 }
 
 
-double Poda_AlfaBeta(Environment actual, int jugador, int algo, int profundidad, Environment::ActionType accion, int alfa, int beta){}
+double Poda_AlfaBeta(Environment actual, int jugador, int algo, int profundidad, Environment::ActionType accion, int alfa, int beta){
+  
+}
