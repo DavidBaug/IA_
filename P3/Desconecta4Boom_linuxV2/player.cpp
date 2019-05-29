@@ -115,7 +115,7 @@ Environment::ActionType Player::Think(){
          cout << " " << actual_.ActionStr( static_cast< Environment::ActionType > (t)  );
     cout << endl;
 
-
+/*
     //--------------------- COMENTAR Desde aqui
     cout << "\n\t";
     int n_opciones=0;
@@ -138,7 +138,7 @@ Environment::ActionType Player::Think(){
             cout << " -> " << actual_.ActionStr( static_cast< Environment::ActionType > (opciones[aleatorio])  ) << endl;
             accion = static_cast< Environment::ActionType > (opciones[aleatorio]);
          }
-
+*/
     //--------------------- COMENTAR Hasta aqui
 
 
@@ -150,13 +150,13 @@ Environment::ActionType Player::Think(){
     // valor = Poda_AlfaBeta(actual_, jugador_, 0, PROFUNDIDAD_ALFABETA, accion, alpha, beta);
     //cout << "Valor MiniMax: " << valor << "  Accion: " << actual_.ActionStr(accion) << endl;
 
-    int accionAuxiliar = -1;
-    valor = Poda_AlfaBeta(actual_,PROFUNDIDAD_ALFABETA, accionAuxiliar, menosinf, masinf);
-    //cout << "Valor MiniMax: " << valor << "  Accion: " << actual_.ActionStr(accion) << endl;
+    int action = -1;
+    valor = Poda_AlfaBeta(actual_,PROFUNDIDAD_ALFABETA, action, menosinf, masinf);
+    // cout << "Valor MiniMax: " << valor << "  Accion: " << actual_.ActionStr(accion) << endl;
 
-    cout << accionAuxiliar;
+    // cout << action;
 
-    switch (accionAuxiliar){
+    switch (action){
       case 0: accion = Environment::PUT1; break;
       case 1: accion = Environment::PUT2; break;
       case 2: accion = Environment::PUT3; break;
@@ -183,7 +183,7 @@ double Player::Poda_AlfaBeta(Environment tablero , int profundidad ,int &accion,
 	 return comprueba(tablero,jugador_);
 
 	else{
-    if(tablero.JugadorActivo() == jugador_ ){
+    if(tablero.JugadorActivo() == jugador_ ){ // NODO MAX
 
   		hijo = tablero.GenerateNextMove(ult_accion);
   		aux = alpha;
@@ -193,7 +193,7 @@ double Player::Poda_AlfaBeta(Environment tablero , int profundidad ,int &accion,
 
   			double valorHijo = Poda_AlfaBeta(hijo , profundidad-1 ,nueva_accion, aux , beta);
 
-  			if(valorHijo > aux && profundidad >= 0){
+  			if(valorHijo > aux && profundidad > 0){
   				accion = ult_accion;
   			}
 
@@ -207,7 +207,7 @@ double Player::Poda_AlfaBeta(Environment tablero , int profundidad ,int &accion,
 
   		}
 
-  	}else{
+  	}else{// NODO MIN
 
   		hijo = tablero.GenerateNextMove(ult_accion);
   		aux = beta;
@@ -217,7 +217,7 @@ double Player::Poda_AlfaBeta(Environment tablero , int profundidad ,int &accion,
 
   			double valorHijo = Poda_AlfaBeta(hijo , profundidad-1 ,nueva_accion, alpha , aux);
 
-  			if(valorHijo < aux && profundidad >= 0){
+  			if(valorHijo < aux && profundidad > 0){
   				accion = ult_accion;
   			}
 
@@ -249,18 +249,18 @@ double Player::comprueba(const Environment &estado, int jugador){
           return 0;  // Hay un empate global y se ha rellenado completamente el tablero
   else{
 
-  double suma = ValoracionTablero(estado,0,0);
+    double suma = ValoracionTablero(estado,0,0);
 
-  for (int i=0; i<7; i++)
+    for (int i=0; i<7; i++)
       for (int j=0;j<7; j++){
-
         if (estado.See_Casilla(i,j)!=0 && suma > ValoracionTablero(estado,i,j) )
           suma += ValoracionTablero(estado,i,j);
-
       }
 
-  	return suma;
+    return suma;
+
   }
+
 
 
 }
@@ -268,6 +268,7 @@ double Player::comprueba(const Environment &estado, int jugador){
 
 
 double Player::ValoracionTablero(const Environment &estado ,int fila, int columna){
+
 
     if (estado.See_Casilla(fila,columna)==0)
         return 0.0;
