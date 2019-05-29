@@ -3,7 +3,10 @@ double Poda_AlfaBeta(Environment &t, int jugador, int profundidad, int limite, d
   Environment::ActionType accion_anterior;
 
   if (t.JuegoTerminado() || profundidad == limite) {
-    return ValoracionTest(t, jugador);
+    if(entorno.JuegoTerminado())
+      return ValoracionTest(entorno,jugador_);
+    else
+      return Valoracion(entorno,jugador_);
   }
 
   Environment v[8];

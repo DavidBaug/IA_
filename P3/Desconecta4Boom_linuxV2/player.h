@@ -8,11 +8,12 @@ class Player{
       Player(int jug);
       Environment::ActionType Think();
       void Perceive(const Environment &env);
-      double Poda_AlfaBeta(const Environment & tablero, int jugador, int profundidad, int profundidad_maxima, Environment::ActionType & accion, double alfa, double beta);
+      double Poda_AlfaBeta(Environment , int ,int &, double , double);
+      double comprueba(const Environment &, int);
+      double ValoracionTablero(const Environment &,int , int );
 
     private:
       int jugador_;
-      int contrario_;
       Environment actual_;
 };
 #endif
