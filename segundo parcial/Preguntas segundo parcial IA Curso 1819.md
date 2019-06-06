@@ -22,7 +22,7 @@ El algoritmo de poda alfa-beta es exactamente que el algoritmo minimax, pero en 
 
 ### 3. ¿Que problemas plantea el cálculo de predicados en la resolución de problemas de IA?
 
-
+caca
 
 
 
