@@ -22,7 +22,7 @@ El algoritmo de poda alfa-beta es exactamente que el algoritmo minimax, pero en 
 
 ### 3. ¿Que problemas plantea el cálculo de predicados en la resolución de problemas de IA?
 
-caca
+Resolver una problema de inteligencia artificial requiere de un proceso de análisis del dominio del problema y un estudio sobre la elección del vocabulario y codificación de los axiomas que necesita para inferir. Por esto mismo no suele ser buena idea usar cálculo de predicados en un modelo del mundo con información incompleta o que se vaya a actualizar constantemente.
 
 
 
