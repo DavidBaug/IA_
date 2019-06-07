@@ -32,11 +32,23 @@ Las redes semánticas buscan representar el lenguaje natural. Existen diversas v
 
 Un frame es una forma de expresar la información de una red semántica textualmente, es decir, una estructura de datos que nos permite representar el conocimiento de forma que el ordenador pueda operar con él. Además de la parte declarativa un frame puede añadir una procedimental, que mediante funciones y métodos que ayudan a calcular soluciones y reducir el coste de la inferencia.
 
+---
 
+Un frame es una entidad compleja que nos permite representar el conocimiento relevante de un concepto. Proporcionan un formalismo para agrupar explícitamente todo el conocimiento concerniente a las propiedades de objetos individuales o clases de objetos. Podemos discernir frames clase, que representan conocimiento de clases de objetos y frames instancia, que representan conocimiento de objetos individuales.
 
 
 
 ### 5. Estructura y componentes de un sistema experto
+
+Base de conocimiento: Contiene el conocimiento que se extrae del experto codificado en la base de datos. Generalmente se representa mediante reglas.
+
+Base de hechos: Contiene la información que se genera tras una consulta. A una información dada el sistema la empareja con su conocimiento y genera una salida.
+
+Motor de inferencia: Es el encargado de trabajar con la información de la base de conocimiento y la base de hechos para deducir nuevos hechos.
+
+Subsistema de explicación:
+
+Interfaz de usuario: La interacción entre un sistema experto y un usuario se realiza en lenguaje natural. La interfaz de usuario es la encargada de facilitar al usuario la comunicación con el sistema.
 
 
 
