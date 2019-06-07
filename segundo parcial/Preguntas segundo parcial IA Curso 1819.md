@@ -28,6 +28,12 @@ Resolver una problema de inteligencia artificial requiere de un proceso de anál
 
 ### 4. Modelos de conocimiento heredable ¿Qué tipo de conocimiento organizan las redes semánticas? Describir en líneas generales el concepto de “frame”.
 
+Las redes semánticas buscan representar el lenguaje natural. Existen diversas variantes, pero todas son capaces de representar objetos individuales, categorías de objetos y relaciones entre ellos.
+
+Un frame es una forma de expresar la información de una red semántica textualmente, es decir, una estructura de datos que nos permite representar el conocimiento de forma que el ordenador pueda operar con él. Además de la parte declarativa un frame puede añadir una procedimental, que mediante funciones y métodos que ayudan a calcular soluciones y reducir el coste de la inferencia.
+
+
+
 
 
 ### 5. Estructura y componentes de un sistema experto
