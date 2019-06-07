@@ -58,7 +58,15 @@ Interfaz de usuario: La interacción entre un sistema experto y un usuario se re
 
 ### 6. Paradigmas de Aprendizaje Automático.
 
+**Aprendizaje supervisado:** El aprendizaje supervisado busca inferir una función determinada dados unos datos de aprendizaje. Es decir, teniendo una **x** y una **y** deducir una **f** tal que **f(x) = y**. Podemos diferenciar clasificación,cuando la salida es categórica, y regresión cuando la salida es cuantitativa.
 
+**Aprendizaje no supervisado:** En el aprendizaje no supervisado sólo tenemos datos de entrada, por lo que se busca modelar una distribución que nos permita distribuir los datos. Podemos diferenciar los siguientes algoritmos:
+
+- Agrupación: el objetivo es descubrir agrupaciones en los datos
+- Análisis de asociaciones: queremos ir y descubrir las reglas que mejor describen la mayor parte de los datos posibles
+- Estimación cuantil
+
+**Aprendizaje por refuerzo:** Se aprende a partir de la información obtenida al realizar procesos de ensayo-error en los que se obtienen señales de beneficio/coste.
 
 
 
