@@ -40,6 +40,10 @@ Un frame es una entidad compleja que nos permite representar el conocimiento rel
 
 ### 5. Estructura y componentes de un sistema experto
 
+![img](https://ciberconta.unizar.es/LECCION/sistexpat/DIBUJOS/sist1.GIF)
+
+
+
 Base de conocimiento: Contiene el conocimiento que se extrae del experto codificado en la base de datos. Generalmente se representa mediante reglas.
 
 Base de hechos: Contiene la información que se genera tras una consulta. A una información dada el sistema la empareja con su conocimiento y genera una salida.
