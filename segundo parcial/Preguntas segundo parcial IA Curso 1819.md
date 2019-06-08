@@ -72,7 +72,12 @@ Interfaz de usuario: La interacción entre un sistema experto y un usuario se re
 
 ### 7. Describir el problema del ruido y el del sobreajuste en aprendizaje automático.
 
-
+El ruido puede causar que nuestro algoritmo no pueda encontrar una función que resuelva el problema, o que la solución encontrada no sea buena. En cuanto al sobreajuste, el aumentar la complejidad polinómica puede hacer que reduzcamos el error de entrenamiento y creamos que tenemos una solución muy buena, después al testear la solución descubrimos que no es la óptima. Al sobreajustar tendemos a aprender ciertos patrones que presentan los datos que se usan en el entrenamiento, por lo que la solución no va a ser apta para nuevos datos que no hayan sido explorados previamente.
 
 ### 8. ¿Qué son y como se construyen los arboles de decisión?
 
+Un árbol de decisión es como una caja negra que toma como entrada un objeto o una situación descrita a través de un conjunto de atributos y devuelve una decisión, el valor previsto de salida dada esa entrada.
+
+En un árbol de decisión contamos con situaciones en los nodos intermedios del árbol, que pueden estar conectadas con soluciones finales u otras decisiones mediante arcos. Al crear un árbol de decisión buscamos poner los nodos cuyos arcos son más restrictivos al comienzo y conforme vayamos explorando los niveles nos acerquemos a una solución más óptima.
+
+Por ejemplo, pongamos que dos amigos salen a cenar y uno es vegetariano, si primero comprobamos que el restaurante no tiene clientes, está cerca, es barato...etc, y lo último que hacemos es comprobar si ofrece un menú vegetariano puede que tengamos suerte, pero en caso contrario habremos realizado muchos cálculos previamente que no eran necesarios. 
