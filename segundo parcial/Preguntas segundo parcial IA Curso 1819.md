@@ -52,7 +52,7 @@ Otro concepto complicado de representar es el tiempo, ya que en cada instante pu
 
 No es recomendable intentar resolver problemas en los que no dispongamos de información completa o bien que esta sea imprecisa. Dentro de esta incertidumbre podemos diferenciar la probabilidad y la vaguedad. La probabilidad nos dice la dificultad de predecir algo de forma exacta aún teniendo toda la información, la vaguedad, por otro lado, hace referencia a la falta de información precisa sobre algo. Ambas son difíciles de representar usando cálculo de predicados.
 
-Hay situaciones en las que una condición no es cierta aunque haya una regla para ello, por ejemplo. "Los pájaros vuelan" es una regla útil ya que la mayoría de los pájaros vuelan. Las excepciones hacen que sea complicado representar la información correctamente.
+Hay situaciones en las que una condición no es cierta aunque haya una regla para ello, por ejemplo. "Las aves vuelan" es una regla útil ya que la mayoría de los pájaros vuelan aunque no lo hacen todos. Las excepciones hacen que sea complicado representar la información correctamente.
 
 El cálculo de predicados presenta también varios problemas computacionales.
 
