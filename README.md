@@ -1,2 +1,2 @@
 # IA_
-Prácticas Inteligencia Artificial UGR
+Prácticas, relaciones de ejercicios y exámenes resueltos - Inteligencia Artificial UGR
